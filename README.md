@@ -18,7 +18,7 @@ September 3rd 2024
 This semester project is dedicated to the exploration of time series analysis, with a specific focus on the various models and techniques employed to model, forecast, and analyze the spread of COVID-19.
 
 ## Literature Review, Week 1 Link - "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models."
-[Link to GitHub Repository]([https://github.com/GianyceG/gianycegcovid.github.io/](https://github.com/GianyceG/gianycegcovid.github.io/blob/main/Capstone_Paper_Review_Literature_Review__Week1.pdf))
+[Link to GitHub Repository](Capstone_Paper_Review_Literature_Review__Week1.pdf)
 ## Literature Review, Week 2
 
 ## References
