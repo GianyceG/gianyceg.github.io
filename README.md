@@ -25,7 +25,7 @@ My semester project is dedicated to the exploration of time series analysis, wit
 ## Literature Review, Repo Week 2 Paper 2 Link - 
 [Link to GitHub Repository](https://github.com/GianyceG/gianyceg.github.io/blob/main/Capstone_Paper_Review_Literature_Review__3_%20(1).pdf)
 
-## Literature Review, Repo Week 4 Link - 
+## Literature Review, Repo Week 3 Link - 
 [Link to GitHub Repository](https://github.com/GianyceG/gianyceg.github.io/blob/main/Capstone_Paper_Review_Literature_Review__4_%20(1).pdf)
 
 ## References
