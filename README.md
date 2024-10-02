@@ -38,6 +38,11 @@ Currently, efforts to perfect the science of forecasting is important as the hig
 
 In this capstone, we will explore the Johns Hopkins CSSEGISandData COVID-19 Repository, which tracks global COVID-19 cases and Our World in Data (OWID), which provides comprehensive COVID-19 datasets across various indicators datasets to test the univariate models ARIMA/SARIMA and Bayesian STS. Using the same model structures, we will also be exploring the Forecasting Income Distribution Gaps in the US, using the US Census datasets. 
 
+-Things I still want to add:
+-References to definitions, where I got model ideas and the fact I am using python (may be a method thing)
+
+
+
 
 ## References
 
