@@ -28,7 +28,9 @@ My semester project is focused on the exploration of time series analysis, parti
 ## Literature Review, Repo Week 3 Link - 
 [Link to GitHub Repository](https://github.com/GianyceG/gianyceg.github.io/blob/main/Capstone_Paper_Review_Literature_Review__4_%20(1).pdf)
 
-# Introduction: Explorations of time series analysis techniques and forecasting methods on Real-World Applications.
+# Introduction
+
+# Explorations of time series analysis techniques and forecasting methods on Real-World Applications.
 
 The use of time series analysis gained recognition since 1970 when the Box-Jenkins method popularized ARIMA models to find the best fit of different time series models based on past data.  However, the concept of analyzing sequential data over time is not new. As the world increasingly embraces data-driven solutions to forecast future industry outcomes, time series analysis has become vital in numerous fields. This includes public health initiatives, such as those that arose in response to the COVID-19 pandemic, and economic studies, such as forecasting income distribution gaps. Both highlight the importance of time series in addressing real-world issues.
 
