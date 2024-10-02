@@ -1,4 +1,4 @@
-# Literature Reviews - Time Series Analysis on COVID-19
+# Project - Explorations of time series analysis techniques and forecasting methods on real-world applications
 
 ---
 
@@ -28,6 +28,17 @@ My semester project is focused on the exploration of time series analysis, parti
 ## Literature Review, Repo Week 3 Link - 
 [Link to GitHub Repository](https://github.com/GianyceG/gianyceg.github.io/blob/main/Capstone_Paper_Review_Literature_Review__4_%20(1).pdf)
 
+# Introduction: Explorations of time series analysis techniques and forecasting methods on real-world applications.
+
+The use of time series analysis gained recognition since 1970 when the Box-Jenkins method popularized ARIMA models to find the best fit of different time series models based on past data.  However, the concept of analyzing sequential data over time is not new. As the world increasingly embraces data-driven solutions to forecast future industry outcomes, time series analysis has become vital in numerous fields. This includes public health initiatives, such as those that arose in response to the COVID-19 pandemic, and economic studies, such as forecasting income distribution gaps. Both highlight the importance of time series in addressing real-world issues.
+
+Anything that is observed sequentially over time is a time series. In the data, we will look at regular intervals of time. The data we analyze typically occur at regular intervals, allowing us to observe trends and seasonal patterns. Time series forecasting is a statistical method used to predict future values based on past results. The simplest models focus solely on the variable being forecast, ignoring external factors like marketing efforts or economic shifts, and instead extrapolating existing trends and seasonality. Specifically in this capestone, we will be exploring univariate models.
+
+Currently, efforts to perfect the science of forecasting is important as the higher the accuracy of a time series based on past data and events, the more essential the tool becomes for modern organizations as accurate forecasts support decision-making across various timeframes—whether short-term, medium-term, or long-term, depending on the specific application. Key considerations in forecasting include seasonality, trends, and external fluctuations, which play a significant role in shaping predictions. These specifically will be explored more as we deal with the data sets of this project. These forecasts are integral for planning, resource allocation, and adjusting strategies in response to upcoming movements.
+
+In this capstone, we will explore the Johns Hopkins CSSEGISandData COVID-19 Repository, which tracks global COVID-19 cases and Our World in Data (OWID), which provides comprehensive COVID-19 datasets across various indicators datasets to test the univariate models ARIMA/SARIMA and Bayesian STS. Using the same model structures, we will also be exploring the Forecasting Income Distribution Gaps in the US, using the US Census datasets. 
+
+
 ## References
 
 **Kulshreshtha, Vikas, and N. K. Garg. 2020.** "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." *The Institution of Engineers (India)*.
@@ -39,5 +50,6 @@ My semester project is focused on the exploration of time series analysis, parti
 **Nielsen, Michael. 2015.** *Neural Networks and Deep Learning*. Determination Press.
 
 **Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.** "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." *Computers & Geosciences*, vol. 164, 105126. Available online 6 May 2022. [https://doi.org/10.1016/j.cageo.2022.105126](https://doi.org/10.1016/j.cageo.2022.105126).
+
 
 
