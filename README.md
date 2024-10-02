@@ -11,9 +11,9 @@ Gianyce Gesualdo Ortiz
 October 1st 2024
 ---
 
-# Introduction
+# Literature Reviews
 
-My semester project is dedicated to the exploration of time series analysis, with a specific focus on the various models and techniques employed to model, forecast, and analyze the spread of COVID-19. This page will highlight all the literature reviews I have worked on this semester.
+My semester project is focused on the exploration of time series analysis, particularly using ARIMA/SARIMA and Bayesian models, to forecast and analyze the spread of COVID-19. Additionally, the project examines socioeconomic data to predict future economic growth. This part of the page will showcase the literature reviews I have completed throughout the semester, highlighting the models and techniques applied in my research.
 
 ## Literature Review, Repo Week 1 Link - "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models."
 [Link to GitHub Repository](Capstone_Paper_Review_Literature_Review__Week1.pdf)
