@@ -72,27 +72,6 @@ Where:
 - \( \theta_1, \dots, \theta_q \) are the moving average coefficients.
 - \( \epsilon_t \) is the white noise error term at time \( t \).
 
-For this project, I use an ARIMA model with parameters \( (3, 2, 1) \). This means:
-- \( p = 3 \) (3 autoregressive terms),
-- \( d = 2 \) (second differencing to achieve stationarity),
-- \( q = 1 \) (1 moving average term).
-
-The mathematical form of the model is:
-
-\[
-Y''_t = c + \phi_1 Y''_{t-1} + \phi_2 Y''_{t-2} + \phi_3 Y''_{t-3} + \theta_1 \epsilon_{t-1} + \epsilon_t
-\]
-
-Where:
-- \( Y''_t \) is the second-differenced confirmed COVID-19 cases at time \( t \).
-- \( \phi_1, \phi_2, \phi_3 \) are the autoregressive coefficients.
-- \( \theta_1 \) is the moving average coefficient for the one lagged forecast error.
-- \( \epsilon_t \) is the white noise error term at time \( t \).
-
-
-SARIMA is an extention of ARIMA models as it includes the trend and seasonal components. 
-
-
 
 ## References
 
