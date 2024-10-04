@@ -52,9 +52,12 @@ To achieve the goals of my capstone, ARIMA/SARIMA for capturing linear trends an
 
 # Methods
 
-My project explores time series forecasting on two distinctly different dataset topics: one centered around COVID-19 Data and the other on U.S. Census data. First, I will begin by explaining the methods I plan to do with the COVID-19 dataset.
+My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Census data. I will begin by explaining the methods I plan to apply to the COVID-19 dataset.
 
-This part of project explores time series forecasting using the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with a focus on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA time series methods are a univariate (single vector) time series without a trend and seasonal component, while other time series methods are multivariate with trend and seasonal component[1]. Specifically in this, I will be exploring the dataset with ARIMA because this model is both accurate in forecasting and since I am focusing on univariate modeling, this model also achieves that standard. They are models that apply mathematical models to non-stationary time series after smoothing the data, which is used to estimate and extrapolate the state of something at some point in the future by analyzing the pattern of historical data and making future predictions based on that pattern and historical data from the past and the present [2]. As represented 
+This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Specifically, I will focus on ARIMA since it is effective for univariate modeling, which aligns with the goals of this project.
+
+ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the COVID-19 dataset.
+
 
 ### ARIMA Model
 
