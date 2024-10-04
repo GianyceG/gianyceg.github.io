@@ -39,6 +39,11 @@
       display: block;
     }
   </style>
+    <!-- Include MathJax for LaTeX rendering -->
+  <script type="text/javascript" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  
 </head>
 <body>
 
@@ -87,6 +92,12 @@
       <li>\( p\) is the number of lag observations (autoregressive terms).</li>
       <li>\( d\) is the number of times the data must be differenced to make it stationary.</li>
       <li>\( q\) is the number of lagged forecast errors (moving average terms).</li>
+      
+    <p>The ARIMA model can be represented as:</p>
+      <script type="math/tex">
+      Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t
+      </script>
+
     </ul>
     </div>
   
@@ -103,7 +114,7 @@
     </ul>
   </div>
 
-  <!-- JavaScript to handle tab switching -->
+   <!-- JavaScript to handle tab switching -->
   <script>
     function openTab(evt, tabName) {
       var i, tabcontent, tablinks;
@@ -121,6 +132,9 @@
 
     // Open the default tab
     document.getElementById("defaultOpen").click();
+
+    // Force MathJax to render any LaTeX
+    MathJax.typeset();
   </script>
 
 </body>
