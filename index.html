@@ -105,39 +105,38 @@
   <li>\( \epsilon_t \) is the white noise error term at time \( t \).</li>
 </ul>
 
+<!-- Tab content for References -->
+<div id="References" class="tabcontent">
+  <h2>References</h2>
+  <ul>
+    <li><strong>[1] Kulshreshtha, Vikas, and N. K. Garg. 2020.</strong> "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." <em>The Institution of Engineers (India)</em>.</li>
+    <li><strong>[2] Demongeot J, Oshinubi K, Rachdi M, et al. 2021.</strong> "The Application of ARIMA Model to Analyze COVID-19 Incidence Pattern in Several Countries." <em>Journal of Mathematics and Computer Science</em>.</li>
+    <li><strong>[3] Wang, Yanding, et al. 2022.</strong> "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models." <em>BMC Infectious Diseases</em>, vol. 22, p. 495.</li>
+    <li><strong>[4] Fotia, Pasquale, and Massimiliano Ferrara. 2023.</strong> "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." <em>Atti della Accademia Peloritana dei Pericolanti</em>.</li>
+    <li><strong>[5] Nielsen, Michael. 2015.</strong> <em>Neural Networks and Deep Learning</em>. Determination Press.</li>
+    <li><strong>[6] Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.</strong> "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." <em>Computers & Geosciences</em>, vol. 164, 105126.</li>
+  </ul>
+</div>
 
-  <!-- Tab content for References -->
-  <div id="References" class="tabcontent">
-    <h2>References</h2>
-    <ul>
-      <li>**[1] Kulshreshtha, Vikas, and N. K. Garg. 2020.** "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." *The Institution of Engineers (India)*.</li>
-      <li>**[2] Demongeot J, Oshinubi K, Rachdi M, et al. 2021.** "The Application of ARIMA Model to Analyze COVID-19 Incidence Pattern in Several Countries." *Journal of Mathematics and Computer Science*.</li>
-      <li>**[3] Wang, Yanding, et al. 2022.** "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models." *BMC Infectious Diseases*, vol. 22, p. 495.</li>
-      <li>**[4] Fotia, Pasquale, and Massimiliano Ferrara. 2023.** "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." *Atti della Accademia Peloritana dei Pericolanti*.</li>
-      <li>**[5] Nielsen, Michael. 2015.** *Neural Networks and Deep Learning*. Determination Press.</li>
-      <li>**[6] Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.** "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." *Computers & Geosciences*, vol. 164, 105126.</li>
-    </ul>
-  </div>
-
-  <!-- JavaScript to handle tab switching -->
-  <script>
-    function openTab(evt, tabName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.className += " active";
+<!-- JavaScript to handle tab switching -->
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
     }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
 
-    // Open the default tab
-    document.getElementById("defaultOpen").click();
-  </script>
+  // Open the default tab
+  document.getElementById("defaultOpen").click();
+</script>
 
 </body>
 </html>
