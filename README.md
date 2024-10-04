@@ -46,19 +46,67 @@ To achieve the goals of my capstone, ARIMA/SARIMA for capturing linear trends an
 -Things I still want to add:
 -References to definitions, where I got model ideas
 
+# Methods
+
+My project explores time series forecasting on two distinctly different dataset topics: one centered around COVID-19 Data and the other on U.S. Census data. First, I will begin by explaining the methods I plan to do with the COVID-19 dataset.
+
+This part of project explores time series forecasting using the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with a focus on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA time series methods are a univariate (single vector) time series without a trend and seasonal component, while other time series methods are multivariate with trend and seasonal component[1]. Specifically in this, I will be exploring the dataset with ARIMA because this model is both accurate in forecasting and since I am focusing on univariate modeling, this model also achieves that standard. They are models that apply mathematical models to non-stationary time series after smoothing the data, which is used to estimate and extrapolate the state of something at some point in the future by analyzing the pattern of historical data and making future predictions based on that pattern and historical data from the past and the present [2]. As represented 
+
+### ARIMA Model
+
+The ARIMA model is defined by the parameters \( (p, d, q) \), where:
+- \( p \) is the number of lag observations (autoregressive terms).
+- \( d \) is the number of times the data must be differenced to make it stationary.
+- \( q \) is the number of lagged forecast errors (moving average terms).
+
+For a general ARIMA model, the equation is:
+
+\[
+Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t
+\]
+
+Where:
+- \( Y_t \) is the value of the time series at time \( t \) (in our case, confirmed COVID-19 cases).
+- \( c \) is a constant (intercept).
+- \( \phi_1, \dots, \phi_p \) are the autoregressive coefficients.
+- \( \theta_1, \dots, \theta_q \) are the moving average coefficients.
+- \( \epsilon_t \) is the white noise error term at time \( t \).
+
+For this project, I use an ARIMA model with parameters \( (3, 2, 1) \). This means:
+- \( p = 3 \) (3 autoregressive terms),
+- \( d = 2 \) (second differencing to achieve stationarity),
+- \( q = 1 \) (1 moving average term).
+
+The mathematical form of the model is:
+
+\[
+Y''_t = c + \phi_1 Y''_{t-1} + \phi_2 Y''_{t-2} + \phi_3 Y''_{t-3} + \theta_1 \epsilon_{t-1} + \epsilon_t
+\]
+
+Where:
+- \( Y''_t \) is the second-differenced confirmed COVID-19 cases at time \( t \).
+- \( \phi_1, \phi_2, \phi_3 \) are the autoregressive coefficients.
+- \( \theta_1 \) is the moving average coefficient for the one lagged forecast error.
+- \( \epsilon_t \) is the white noise error term at time \( t \).
+
+
+SARIMA is an extention of ARIMA models as it includes the trend and seasonal components. 
+
 
 
 ## References
 
-**Kulshreshtha, Vikas, and N. K. Garg. 2020.** "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." *The Institution of Engineers (India)*.
+**[1] Kulshreshtha, Vikas, and N. K. Garg. 2020.** "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." *The Institution of Engineers (India)*.
 
-**Wang, Yanding, et al. 2022.** "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models." *BMC Infectious Diseases*, vol. 22, p. 495. [https://doi.org/10.1186/s12879-022-07472-6](https://doi.org/10.1186/s12879-022-07472-6).
+**[2] Demongeot J, Oshinubi K, Rachdi M, Hobbad L, Alahiane M, Iggui S, Gaudart J, Ouassou I. 2021.** "The Application of ARIMA Model to Analyze COVID-19 Incidence Pattern in Several Countries." *J Math Comput Sci*. [https://www.scik.org/index.php/jmcs/article/view/6541](https://www.scik.org/index.php/jmcs/article/view/6541).
 
-**Fotia, Pasquale, and Massimiliano Ferrara. 2023.** "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." *Atti della Accademia Peloritana dei Pericolanti - Classe di Scienze Fisiche, Matematiche e Naturali*, vol. 101, no. 2.
+**[3] Wang, Yanding, et al. 2022.** "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models." *BMC Infectious Diseases*, vol. 22, p. 495. [https://doi.org/10.1186/s12879-022-07472-6](https://doi.org/10.1186/s12879-022-07472-6).
 
-**Nielsen, Michael. 2015.** *Neural Networks and Deep Learning*. Determination Press.
+**[4] Fotia, Pasquale, and Massimiliano Ferrara. 2023.** "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." *Atti della Accademia Peloritana dei Pericolanti - Classe di Scienze Fisiche, Matematiche e Naturali*, vol. 101, no. 2.
 
-**Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.** "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." *Computers & Geosciences*, vol. 164, 105126. Available online 6 May 2022. [https://doi.org/10.1016/j.cageo.2022.105126](https://doi.org/10.1016/j.cageo.2022.105126).
+**[5] Nielsen, Michael. 2015.** *Neural Networks and Deep Learning*. Determination Press.
+
+**[6] Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.** "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." *Computers & Geosciences*, vol. 164, 105126. Available online 6 May 2022. [https://doi.org/10.1016/j.cageo.2022.105126](https://doi.org/10.1016/j.cageo.2022.105126).
 
 
 
