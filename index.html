@@ -64,7 +64,7 @@
     </ul>
   </div>
 
-  <!-- Tab content for Introduction -->
+<!-- Tab content for Introduction -->
   <div id="Intro" class="tabcontent">
     <h2>Introduction</h2>
     <p>The use of time series analysis gained recognition since 1970 when the Box-Jenkins method popularized ARIMA models to find the best fit of different time series models based on past data. However, the concept of analyzing sequential data over time is not new. As the world increasingly embraces data-driven solutions to forecast future industry outcomes, time series analysis has become vital in numerous fields. This includes public health initiatives, such as those that arose in response to the COVID-19 pandemic, and economic studies, such as forecasting income distribution gaps. Both highlight the importance of time series in addressing real-world issues.</p>
@@ -74,7 +74,7 @@
     <p>To achieve the goals of my capstone, ARIMA/SARIMA will be used for capturing linear trends and seasonal effects, and Bayesian STS for incorporating uncertainty and providing probabilistic forecasts. The project will begin with an exploratory data analysis (EDA) to visualize the time series data, identify patterns, and check for seasonality or trends. After cleaning and preprocessing the data, I will test both models using Python on the COVID-19 and income distribution datasets. The results will then be compared to assess which approach yields the most accurate and insightful forecasts.</p>
   </div>
 
-  <!-- Tab content for Methods -->
+ <!-- Tab content for Methods -->
   <div id="Methods" class="tabcontent">
     <h2>Methods</h2>
     <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Census data. I will begin by explaining the methods I plan to apply to the COVID-19 dataset.</p>
@@ -88,56 +88,39 @@
       <li>\( d\) is the number of times the data must be differenced to make it stationary.</li>
       <li>\( q\) is the number of lagged forecast errors (moving average terms).</li>
     </ul>
-    <p>For a general ARIMA model, the equation is:</p>
+    
+  <!-- Tab content for References -->
+  <div id="References" class="tabcontent">
+    <h2>References</h2>
+    <ul>
+      <li><strong>[1] Kulshreshtha, Vikas, and N. K. Garg. 2020.</strong> "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." <em>The Institution of Engineers (India)</em>.</li>
+      <li><strong>[2] Demongeot J, Oshinubi K, Rachdi M, et al. 2021.</strong> "The Application of ARIMA Model to Analyze COVID-19 Incidence Pattern in Several Countries." <em>Journal of Mathematics and Computer Science</em>.</li>
+      <li><strong>[3] Wang, Yanding, et al. 2022.</strong> "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models." <em>BMC Infectious Diseases</em>, vol. 22, p. 495.</li>
+      <li><strong>[4] Fotia, Pasquale, and Massimiliano Ferrara. 2023.</strong> "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." <em>Atti della Accademia Peloritana dei Pericolanti</em>.</li>
+      <li><strong>[5] Nielsen, Michael. 2015.</strong> <em>Neural Networks and Deep Learning</em>. Determination Press.</li>
+      <li><strong>[6] Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.</strong> "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." <em>Computers & Geosciences</em>, vol. 164, 105126.</li>
+    </ul>
+  </div>
 
-    <p>The ARIMA model can be represented as:</p>
-    <pre>
-    \[
-    Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t
-    \]
-    </pre>
-<p>Where:</p>
-<ul>
-  <li>\( Y_t \) is the value of the time series at time \( t \) (in this case, confirmed COVID-19 cases).</li>
-  <li>\( c \) is a constant (intercept).</li>
-  <li>\( \phi_1, \dots, \phi_p \) are the autoregressive coefficients.</li>
-  <li>\( \theta_1, \dots, \theta_q \) are the moving average coefficients.</li>
-  <li>\( \epsilon_t \) is the white noise error term at time \( t \).</li>
-</ul>
-</div>
-
-<!-- Tab content for References -->
-<div id="References" class="tabcontent">
-  <h2>References</h2>
-  <ul>
-    <li><strong>[1] Kulshreshtha, Vikas, and N. K. Garg. 2020.</strong> "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." <em>The Institution of Engineers (India)</em>.</li>
-    <li><strong>[2] Demongeot J, Oshinubi K, Rachdi M, et al. 2021.</strong> "The Application of ARIMA Model to Analyze COVID-19 Incidence Pattern in Several Countries." <em>Journal of Mathematics and Computer Science</em>.</li>
-    <li><strong>[3] Wang, Yanding, et al. 2022.</strong> "Prediction and Analysis of COVID-19 Daily New Cases and Cumulative Cases: Time Series Forecasting and Machine Learning Models." <em>BMC Infectious Diseases</em>, vol. 22, p. 495.</li>
-    <li><strong>[4] Fotia, Pasquale, and Massimiliano Ferrara. 2023.</strong> "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." <em>Atti della Accademia Peloritana dei Pericolanti</em>.</li>
-    <li><strong>[5] Nielsen, Michael. 2015.</strong> <em>Neural Networks and Deep Learning</em>. Determination Press.</li>
-    <li><strong>[6] Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.</strong> "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." <em>Computers & Geosciences</em>, vol. 164, 105126.</li>
-  </ul>
-</div>
-
-<!-- JavaScript to handle tab switching -->
-<script>
-  function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
+  <!-- JavaScript to handle tab switching -->
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
 
-  // Open the default tab
-  document.getElementById("defaultOpen").click();
-</script>
+    // Open the default tab
+    document.getElementById("defaultOpen").click();
+  </script>
 
 </body>
 </html>
