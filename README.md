@@ -2,7 +2,7 @@
 layout: default
 ---
 
-Project - Explorations of time series analysis techniques and forecasting methods on real-world applications
+# Project - Explorations of time series analysis techniques and forecasting methods on real-world applications
 
 ---
 
