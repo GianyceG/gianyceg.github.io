@@ -1,12 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your GitHub Pages Site</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Series Project</title>
+  <style>
+    /* Simple tab styles */
+    .tab {
+      overflow: hidden;
+      background-color: #f1f1f1;
+    }
+
+    .tab button {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    .tab button.active {
+      background-color: #ccc;
+    }
+
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border-top: none;
+    }
+
+    .tabcontent.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to My Project</h1>
-    <p>This is a placeholder for your GitHub Pages site. Make sure to customize this file.</p>
+
+  <h1>Explorations of Time Series Forecasting</h1>
+
+  <!-- Tab buttons -->
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'Intro')" id="defaultOpen">Introduction</button>
+    <button class="tablinks" onclick="openTab(event, 'LitReview')">Literature Review</button>
+    <button class="tablinks" onclick="openTab(event, 'Methods')">Methods</button>
+    <button class="tablinks" onclick="openTab(event, 'References')">References</button>
+  </div>
+
+  <!-- Tab content -->
+  <div id="Intro" class="tabcontent">
+    <h2>Introduction</h2>
+    <p>The use of time series analysis ...</p>
+  </div>
+
+  <div id="LitReview" class="tabcontent">
+    <h2>Literature Reviews</h2>
+    <p>Here are the reviews...</p>
+    <ul>
+      <li><a href="Capstone_Paper_Review_Literature_Review__Week1.pdf">Week 1 Review</a></li>
+      <li><a href="https://github.com/GianyceG/gianyceg.github.io/blob/main/Capstone_Paper_Review_Literature_Review__2_%20(1).pdf">Week 2 Review</a></li>
+    </ul>
+  </div>
+
+  <div id="Methods" class="tabcontent">
+    <h2>Methods</h2>
+    <p>This part of the project uses time series forecasting on the COVID-19 dataset...</p>
+  </div>
+
+  <div id="References" class="tabcontent">
+    <h2>References</h2>
+    <ul>
+      <li>**Kulshreshtha, Vikas, and N. K. Garg. 2020.** "Predicting the New Cases of Coronavirus..."</li>
+      <li>**Wang, Yanding, et al. 2022.** "Prediction and Analysis of COVID-19 Daily New Cases..."</li>
+    </ul>
+  </div>
+
+  <!-- JavaScript to handle tab switching -->
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Open the default tab
+    document.getElementById("defaultOpen").click();
+  </script>
+
 </body>
 </html>
