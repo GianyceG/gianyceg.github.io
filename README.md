@@ -61,9 +61,12 @@ The ARIMA model is defined by the parameters \( (p, d, q) \), where:
 
 For a general ARIMA model, the equation is:
 
+The ARIMA model can be represented as:
+
 \[
-Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t
+Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t
 \]
+
 
 Where:
 - \( Y_t \) is the value of the time series at time \( t \) (in our case, confirmed COVID-19 cases).
