@@ -12,7 +12,7 @@ Gianyce Gesualdo Ortiz
 
 ### UPDATED
 
-October 1st 2024
+October 5th 2024
 ---
 
 # Introduction
