@@ -84,7 +84,9 @@
     <h2>Methods</h2>
     <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Census data. I will begin by explaining the methods I plan to apply to the COVID-19 dataset.</p>
     <p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Specifically, I will focus on ARIMA since it is effective for univariate modeling, which aligns with the goals of this project.</p>
+    <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.
     <p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the COVID-19 dataset.</p>
+    
 
     <h3>ARIMA Model</h3>
     <p>The ARIMA model is defined by the parameters \( (p, d, q) \), where:</p>
@@ -98,14 +100,15 @@
     \[Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t\]
     </p>
     <p>Where:</p>
-<ul>
+    <ul>
   <li>\( Y_t \) is the value of the time series at time \( t \) (in this case, confirmed COVID-19 cases).</li>
   <li>\( c \) is a constant (intercept).</li>
   <li>\( \phi_1, \dots, \phi_p \) are the autoregressive coefficients.</li>
   <li>\( \theta_1, \dots, \theta_q \) are the moving average coefficients.</li>
   <li>\( \epsilon_t \) is the white noise error term at time \( t \).</li>
-</ul>
-</div>
+  </ul>
+  </div>
+<h3>Bayesian Structural Time Series Model (BSTS)</h3>
   
   
   <!-- Tab content for References -->
