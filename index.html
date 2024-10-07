@@ -106,9 +106,52 @@
   <li>\( \phi_1, \dots, \phi_p \) are the autoregressive coefficients.</li>
   <li>\( \theta_1, \dots, \theta_q \) are the moving average coefficients.</li>
   <li>\( \epsilon_t \) is the white noise error term at time \( t \).</li>
-  </ul>
-  </div>
-  
+  </ul><h3>ARIMA Model Application to Python</h3>
+
+<h4>Libraries Used for ARIMA</h4>
+<p>To perform time series forecasting using ARIMA, the following key Python libraries were utilized:</p>
+
+<ul>
+  <li>
+    <strong>Pandas</strong>: Used for handling and manipulating the dataset, particularly converting date columns and preparing it for time series analysis.
+    <ul>
+      <li><code>pandas.read_csv()</code> to load the dataset.</li>
+      <li><code>pandas.to_datetime()</code> to convert the date column to a format usable for time series.</li>
+      <li><code>pandas.DataFrame.diff()</code> to apply differencing for stationarity.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Matplotlib</strong>: For visualizing the time series, differencing, and residual diagnostics.
+    <ul>
+      <li><code>matplotlib.pyplot.plot()</code> to plot time series, ACF, PACF, and residuals.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Statsmodels</strong>: Provides the implementation of the ARIMA model and time series diagnostics like ACF and PACF.
+    <ul>
+      <li><code>statsmodels.tsa.arima.model.ARIMA</code> for fitting the ARIMA model.</li>
+      <li><code>statsmodels.graphics.tsaplots.plot_acf()</code> to plot the autocorrelation function (ACF).</li>
+      <li><code>statsmodels.graphics.tsaplots.plot_pacf()</code> to plot the partial autocorrelation function (PACF).</li>
+    </ul>
+  </li>
+</ul>
+
+<h4>Data Split</h4>
+<ul>
+  <li><strong>Training Set:</strong> 80% of the dataset was used for training.</li>
+  <li><strong>Test Set:</strong> 20% of the dataset was reserved for testing.</li>
+</ul>
+
+<h4>Process</h4>
+<p>The process for the ARIMA model involved several key steps:</p>
+
+<ol>
+  <li>Applied first-order differencing to the time series data to make it stationary.</li>
+  <li>Utilized the <strong>ACF</strong> and <strong>PACF</strong> plots to determine the appropriate model parameters (p, d, q).</li>
+  <li>Fitted an ARIMA model based on the selected parameters.</li>
+  <li>Checked the residuals of the model to ensure that they resemble white noise, indicating a good fit.</li>
+</ol>
+
   <h3>Bayesian Structural Time Series Model (BSTS)</h3>
   </div>
   
