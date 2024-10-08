@@ -162,12 +162,21 @@
   </div>
 
   <!-- Tab content for US Census -->
-  <div id="Methods for US Census" class="tabcontent">
+  <div id="Methods for Labor Industries" class="tabcontent">
     <h2>Methods</h2>
-    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Census data. In these methods, I will be focusing on the U.S. Census datasets and how I can apply the models that I have used for this data as well.</p>
-<p>This part of the project uses time series forecasting on the U.S. Census Bureau datasets, with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). These models will attempt to forecast income disparities within the U.S. and, based on current income, project future earnings. AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components. Specifically, I will focus on ARIMA since it is effective for univariate modeling, which aligns with the goals of this project.</p>
+    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Census data <a href="https://www.bls.gov/cew/downloadable-data-files.htm" target="_blank">. In these methods, I will be focusing on the U.S. Census datasets and how I can apply the models that I have used for this data as well.</p>
+<p>This part of the project uses time series forecasting on the U.S. Bureau of Statistics datasets, with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). These models will attempt to forecast income disparities within the U.S. and, based on current income, project future earnings. I will specifically be attempting to project Q4 earnings for different work industries within Osceola County, Florida. AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components. Specifically, I will focus on ARIMA since it is effective for univariate modeling, which aligns with the goals of this project.</p>
 <p>First, the data will be loaded into Jupyter Notebook and processed with Python. Then, the data needs to be prepared as it is not from a current repository, unlike the COVID-19 dataset.</p>
-<p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the U.S. Census dataset, as we are not dealing with seasonality and are trying to capture the movement of current data based on income levels to project what could be made in the future.</p>    
+<p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the U.S. Census dataset, as we are not dealing with seasonality and are trying to capture the movement of current data based on income levels to project what could be made in the future.</p> 
+  <p>To accomplish this, I will utilize two forecasting approaches: ARIMA and Bayesian Structural Time Series (BSTS). Below are the steps involved in my methodology:</p>
+<ol>
+  <li>Download the quarterly earnings data from the U.S. Bureau of Labor Statistics. I will be looking at 2020-2024, and using the past 3 years to build the model.</li>
+  <li>Upload the datasets into Python.</li>
+  <li>Visualize the data to understand its structure and behavior.</li>
+  <li>Apply transformations to make the time series data stationary.</li>
+  <li>Plot the Partial Autocorrelation Function (PACF) and Autocorrelation Function (ACF) to determine the appropriate parameters.</li>
+  <li>Analyze residuals to validate the accuracy of the model.</li>
+<p> Similarly as before, we will be applying the Bayesian Model as well to this dataset and comparing the results that have been obtained. </p>
  </div>
     
 
