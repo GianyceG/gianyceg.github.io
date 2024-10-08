@@ -113,46 +113,51 @@
 
 </ul><h3>ARIMA Model Application to Python</h3>
 
-<h4>Libraries Used for ARIMA</h4>
-<p>To perform time series forecasting using ARIMA, the following key Python libraries were utilized:</p>
-
-<ul>
-  <li>
-    <strong>Pandas</strong>: Used for handling and manipulating the dataset, particularly converting date columns and preparing it for time series analysis.
-    <ul>
-      <li><code>pandas.read_csv()</code> to load the dataset.</li>
-      <li><code>pandas.to_datetime()</code> to convert the date column to a format usable for time series.</li>
-      <li><code>pandas.DataFrame.diff()</code> to apply differencing for stationarity.</li>
-    </ul>
-  </li>
-  <li>
-    <strong>Matplotlib</strong>: For visualizing the time series, differencing, and residual diagnostics.
-    <ul>
-      <li><code>matplotlib.pyplot.plot()</code> to plot time series, ACF, PACF, and residuals.</li>
-    </ul>
-  </li>
-  <li>
-    <strong>Statsmodels</strong>: Provides the implementation of the ARIMA model and time series diagnostics like ACF and PACF.
-    <ul>
-      <li><code>statsmodels.tsa.arima.model.ARIMA</code> for fitting the ARIMA model.</li>
-      <li><code>statsmodels.graphics.tsaplots.plot_acf()</code> to plot the autocorrelation function (ACF).</li>
-      <li><code>statsmodels.graphics.tsaplots.plot_pacf()</code> to plot the partial autocorrelation function (PACF).</li>
-    </ul>
-  </li>
-</ul>
-
+<p>The key libraries utilized for processing my ARIMA model were <strong>Pandas</strong>, <strong>Matplotlib</strong>, and <strong>Statsmodels</strong>. I used <strong>Pandas</strong> extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. <strong>Matplotlib</strong> was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. <strong>Statsmodels</strong> was used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
       
 <h4>Process</h4>
-<p>The process for the ARIMA model involved several key steps:</p>
+<p>The process of applying my ARIMA model involved several key steps. It is especially important to note that the results were specified down to the Florida, USA level due to the mass size of the data.:</p>
 
 <ol>
+  <li>I processed the data from the Johns Hopkins dataset. They had the data already prepared and cleaned, organized by the country, province, state, update, confirmed cases, and more variables. These are the ones I focused on.</li>
+  <li>I made sure that the date and time variables were all formatted correctly and cleaned up any NaN values.</li>
+  <li>I graphed the general USA COVID-19 graph to see the structure in which the data was moving and determined it was not stationary because it had both a positive trend and it seemed to be affected by some sort of seasonality (this will be explored more in the SARIMA model).</li>
   <li>Applied first-order differencing to the time series data to make it stationary.</li>
-  <li>Utilized the <strong>ACF</strong> and <strong>PACF</strong> plots to determine the appropriate model parameters (p, d, q).</li>
-  <li>Fitted an ARIMA model based on the selected parameters.</li>
-  <li>Checked the residuals of the model to ensure that they resemble white noise, indicating a good fit.</li>
+  <li>Using the AIC function, I determined the most ideal ARIMA model parameters for (p,d,q).</li>
+  <li>I fitted the model and checked the residuals for white noise.</li>
+  <li>Developed a forecast for the next 30 days for the state of Florida.</li>
 </ol>
 
+
   <h3>Bayesian Structural Time Series Model (BSTS)</h3>
+    
+<p>The BSTS model can be represented as follows:</p>
+<p>
+\[Y_t = T_t + S_t + X_t \beta + \epsilon_t\]
+</p>
+<p>Where:</p>
+<ul>
+  <li>\( Y_t \) is the observed value of the time series at time \( t \) (e.g., COVID-19 confirmed cases in Florida).</li>
+  <li>\( T_t \) represents the trend component, which captures the overall movement of the COVID-19 cases over time.</li>
+  <li>\( S_t \) is the seasonal component, used to model recurring weekly in my COVID-19 data.</li>
+  <li>\( X_t \) represents the regressors, which include external variables such as public policies, mobility, or vaccination rates.</li>
+  <li>\( \beta \) is the vector of regression coefficients for the regressors.</li>
+  <li>\( \epsilon_t \) is the error term at time \( t \), accounting for random noise.</li>
+</ul>
+
+<p>For the COVID-19 data in Florida, the BSTS model captures the underlying trend, any seasonal effects (such as pandemic waves or reporting delays), and the effect of external factors like public health measures. Bayesian estimation allows for uncertainty quantification, and the components are estimated using Markov Chain Monte Carlo (MCMC) methods to fit the model.</p>
+
+<h4>Process</h4>
+<ol>
+  <li>Load the dataset and ensure all necessary variables are in the appropriate format for time series analysis (e.g., convert dates to datetime format, handle missing values).</li>
+  <li>Define the components of the BSTS model, such as the trend, seasonal, and regression components. Each component captures a specific feature of the time series, like long-term patterns or periodicity.</li>
+  <li>Use a Bayesian approach to estimate the model parameters based on the observed data. This involves setting priors and using Markov Chain Monte Carlo (MCMC) methods to fit the model.</li>
+  <li>Assess model fit by evaluating posterior distributions of parameters, inspecting residuals, and computing prediction intervals to ensure the model is capturing the underlying patterns of the data.</li>
+  <li>Use the fitted BSTS model to generate future forecasts. Predictive intervals are also computed, allowing for uncertainty quantification in the forecasts.</li>
+  <li>Perform model diagnostics such as comparing predictions to actual values (cross-validation) or calculating prediction accuracy metrics like Mean Absolute Error (MAE) to validate the model's performance.</li>
+  <li>Plot the time series, model components, and forecasted values to visually evaluate how well the model explains the data.</li>
+</ol>
+
   </div>
   
   <!-- Tab content for References -->
