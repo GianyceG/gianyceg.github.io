@@ -159,26 +159,33 @@
   <li>Plot the time series, model components, and forecasted values to visually evaluate how well the model explains the data.</li>
 </ol>
     
-    <h2>Methods For Labor Forecasting</h2>
-    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Bureau of Statistics data. In these methods, I will be focusing on the U.S. Census datasets and how I can apply the models that I have used for this data as well. You can find more details about the dataset <a href="https://www.bls.gov/cew/downloadable-data-files.htm" target="_blank">here</a>.</p>
-    
-    <p>This part of the project uses time series forecasting on the U.S. Bureau of Statistics datasets, with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). These models will attempt to forecast income disparities within the U.S. and, based on current income, project future earnings. I will specifically be attempting to project Q4 earnings for different work industries within Osceola County, Florida. AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components. Specifically, I will focus on ARIMA since it is effective for univariate modeling, which aligns with the goals of this project.</p>
-    
-    <p>First, the data will be loaded into Jupyter Notebook and processed with Python. Then, the data needs to be prepared as it is not from a current repository, unlike the COVID-19 dataset.</p>
-    
-    <p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the U.S. Census dataset, as we are not dealing with seasonality and are trying to capture the movement of current data based on income levels to project what could be made in the future.</p> 
-    
-    <p>To accomplish this, I will utilize two forecasting approaches: ARIMA and Bayesian Structural Time Series (BSTS). Below are the steps involved in my methodology:</p>
-    
-    <ol>
-        <li>Download the quarterly earnings data from the U.S. Bureau of Labor Statistics. I will be looking at 2020-2024, and using the past 3 years to build the model.</li>
-        <li>Upload the datasets into Python.</li>
-        <li>Visualize the data to understand its structure and behavior.</li>
-        <li>Apply transformations to make the time series data stationary.</li>
-        <li>Plot the Partial Autocorrelation Function (PACF) and Autocorrelation Function (ACF) to determine the appropriate parameters.</li>
-        <li>Analyze residuals to validate the accuracy of the model.</li>
-    </ol>
+     <h2>Methods for CO2 Emission Forecasting</h2>
+    <h3>ARIMA Method:</h3>
 
+    <p>
+        To forecast CO2 emissions, we first download the dataset from the NOAA Global Monitoring Laboratory website, where they monitor monthly CO2 emissions at Mauna Loa. After downloading the dataset, I loaded it into a Jupyter Notebook for graphing and exploration.
+    </p>
+    <p>
+        Initially, the graph of the CO2 data showed both a seasonal pattern and an upward trend, suggesting that the data is non-stationary. To confirm this, I applied the Augmented Dickey-Fuller (ADF) test, which tests the following hypotheses:
+    </p>
+    <ul>
+        <li><strong>H0:</strong> The data is non-stationary (fail to reject the null).</li>
+        <li><strong>H1:</strong> The data is stationary (reject the null).</li>
+    </ul>
+    <p>
+        Using a significance level of 0.05, if the p-value is less than 0.05, we reject the null hypothesis. In this case, the p-value from the ADF test was 1, which is greater than 0.05. This indicates that the data is non-stationary, and stationarization is required.
+    </p>
+    <p>
+        To address this, I applied the differencing technique. After differencing the data, I re-applied the ADF test, which resulted in a p-value of 0.00005, indicating the data is now stationary.
+    </p>
+
+    <p>
+        Next, I examined the Partial Autocorrelation Function (PACF) and Autocorrelation Function (ACF) plots derived from the differenced data. Based on these plots, two potential ARIMA models were identified: (3,1,2) and (3,1,1). I used Python's Statsmodels library to fit these models and selected the model with the lowest Akaike Information Criterion (AIC) value, which turned out to be the (3,1,2) model. This model was then used to forecast CO2 emissions up to 2025. While the forecast captured the general upward trend, it did not adequately represent the seasonality in the data.
+    </p>
+    <h3>SARIMA Model:</h3>
+    <p>
+        To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.
+    </p>
     <p>Similarly as before, we will be applying the Bayesian Model as well to this dataset and comparing the results that have been obtained.</p>
 </div>
 
