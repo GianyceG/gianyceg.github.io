@@ -123,15 +123,17 @@
   <li>I processed the data from the Johns Hopkins dataset. They had the data already prepared and cleaned, organized by the country, province, state, update, confirmed cases, and more variables. These are the ones I focused on.</li>
   <li>I made sure that the date and time variables were all formatted correctly and cleaned up any NaN values.</li>
   <li>I graphed the general USA COVID-19 graph to see the structure in which the data was moving and determined it was not stationary because it had both a positive trend and it seemed to be affected by some sort of seasonality (this will be explored more in the SARIMA model).</li>
-  <li>Applied first-order differencing to the time series data to make it stationary.</li>
+  <li>To determine if the model was stationary or not stationary, I also employed the ADF test, which follows: </li>
+    <ul>
+    <li><strong>H0:</strong> The data is non-stationary.</li>
+    <li><strong>H1:</strong> The data is stationary.</li>
+</ul>
+  <li> Due to the fact that my p-value was greater than 0.05, we fail to reject the null hypothesis, and therefore perform a first order differencing on the model. Which is then seen to be stationary under this hypothesis.<li>
   <li>Using the AIC function, I determined the most ideal ARIMA model parameters for (p,d,q).</li>
   <li>I fitted the model and checked the residuals for white noise.</li>
   <li>Developed a forecast for the next 30 days for the state of Florida.</li>
 </ol>
-
-
   <h3>Bayesian Structural Time Series Model (BSTS)</h3>
-    
 <p>The BSTS model can be represented as follows:</p>
 <p>
 \[Y_t = T_t + S_t + X_t \beta + \epsilon_t\]
@@ -179,8 +181,8 @@
 <p>Initially, the graph of the CO2 data showed both a seasonal pattern and an upward trend, suggesting that the data is non-stationary. To confirm this, I applied the Augmented Dickey-Fuller (ADF) test, which tests the following hypotheses:</p>
 
 <ul>
-    <li><strong>H0:</strong> The data is non-stationary (fail to reject the null).</li>
-    <li><strong>H1:</strong> The data is stationary (reject the null).</li>
+    <li><strong>H0:</strong> The data is non-stationary.</li>
+    <li><strong>H1:</strong> The data is stationary.</li>
 </ul>
 
 <p>Using a significance level of 0.05, if the p-value is less than 0.05, we reject the null hypothesis. In this case, the p-value from the ADF test was 1, which is greater than 0.05. This indicates that the data is non-stationary, and stationarization is required.</p>
