@@ -82,26 +82,40 @@
     <p>To achieve the goals of my capstone, ARIMA/SARIMA will be used for capturing linear trends and seasonal effects, and Bayesian STS for incorporating uncertainty and providing probabilistic forecasts. The project will begin with an exploratory data analysis (EDA) to visualize the time series data, identify patterns, and check for seasonality or trends. After cleaning and preprocessing the data, I will test both models using Python on the COVID-19 and CO2 datasets. The results will then be compared to assess which approach yields the most accurate and insightful forecasts. </p>
 <h2>Time Series Forecasting Models</h2>
   <p>In different papers and studies, it is easy to see that there are a multitude of models to explore and chose from, depending on what is being questioned or asked from by the researcher and data. Most of the models can be seen following into different categories. Traditional statistical modeling, which includes a moving average, exponential smoothing, and autoregressive (ARIMA). These are seen as linear functions taking past observations to make sound predictions. Second category of model type is nonlinear models.</p>
+   
+   <h3>ARIMA Model</h3>
+<h3>ARIMA Model</h3>
+<p>The ARIMA model is defined by the parameters \( (p, d, q) \), where:</p>
+<ul>
+  <li>\( p\) is the number of lag observations (autoregressive terms).</li>
+  <li>\( d\) is the number of times the data must be differenced to make it stationary.</li>
+  <li>\( q\) is the number of lagged forecast errors (moving average terms) <a href="#ref1">[1]</a>.</li>
+</ul>
+
+<p>The ARIMA model is composed of two submodels, the AR (Autoregressive) and the MA (Moving Average) model, described mathematically as follows:</p>
+<p>\[Y(AR)_t = \alpha + \beta_1 Y(AR)_{t-1} + \beta_2 Y(AR)_{t-2} + \cdots + \beta_p Y(AR)_{t-p}\] (1)</p>
+<p>where \( Y(AR)_t \) are the lags of the series, \( \beta \) are the lag coefficients estimated by the model, and \( \alpha \) is the model’s intercept term.</p>
+<p>\[Y(MA)_t = \epsilon_t + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \cdots + \theta_q \epsilon_{t-q}\] (2)</p>
+<p>where \( Y(MA)_t \) depends only on the lagged forecast errors, \( \theta \) are the parameters of the model, and \( \epsilon \) are unrelated error terms.</p>
+<p>The mathematical expression of the ARIMA model, as a combination of AR and MA models, is:</p>
+<p>\[Y_t = \alpha + \sum_{i=1}^{p} \beta_i Y_{t-i} + \epsilon_t - \sum_{j=1}^{q} \theta_j \epsilon_{t-j}\] (3)</p>
+<p>Where \( Y_t \) and \( \epsilon_t \) represent the time series and the random error at time \( t \), \( \beta \) and \( \theta \) are the coefficients of the model.</p>
+<p>When estimating the \( p\) and \( q\) parameters of the AR and the MA models, we use plots from the ACF function and the PACF functions. Just to summarize, the autocorrelation function, ACF, is a function that shows the correlation between the observed of the \(t \) time and the observation at the previous times. This function indicates the autocorrelation coefficient, which is the measurement of the correlation between observations at different times. PACF, or partial autocorrelation function differs because it is the correlation between two random variables after the influence of confounding variable is removed <a href="https://iopscience.iop.org/article/10.1088/1755-1315/235/1/012097/pdf" target="_blank">[7]</a>.</p>
+
 <h2>Limitations</h2>
 <p> This is going to discuss limitations of the models selected.</p>
 </div>
   
  <!-- Tab content for Methods for COVID-19 -->
   <div id="Methods" class="tabcontent">
-    <h2>Methods for COVID-19 </h2>
-    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on U.S. Census data. I will begin by explaining the methods I plan to apply to the COVID-19 dataset.</p>
-    <p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Specifically, I will focus on ARIMA since it is effective for univariate modeling, which aligns with the goals of this project.</p>
-    <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.
-    <p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the COVID-19 dataset.</p>
+    <h2>Methods </h2>
     
+    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on the NOAA Mauna Loa CO2 emission dataset.  I will apply my models to both datasets and compare their forecasting strengths to one another. Then, I will generate an overall summary on strengths, weaknesses, and limitations that were faced throughout my project. </p>
 
-    <h3>ARIMA Model</h3>
-    <p>The ARIMA model is defined by the parameters \( (p, d, q) \), where:</p>
-    <ul>
-      <li>\( p\) is the number of lag observations (autoregressive terms).</li>
-      <li>\( d\) is the number of times the data must be differenced to make it stationary.</li>
-      <li>\( q\) is the number of lagged forecast errors (moving average terms).</li>
-      
+    <h2>Johns Hopkins COVID-19 Exploration </h2>
+    <p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Within this capstone, I will show how the predictions will look when forecasted with ARIMA, SARIMA, and Bayesian STS. Then, I will compare my results, decide which is best suited for the COVID-19 dataset, and revisit the limitations of the models with the results of their applications. </p>
+    <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.
+    <p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the COVID-19 dataset.</p>  
   <p>My ARIMA(5,0,5) Model:</p>
 <p>For this specific COVID-19 data and the model that I will end up generating, the following is the mathematical expression of my ARIMA model in general terms:</p>
 <p>
@@ -117,6 +131,7 @@
     <li>\( \epsilon_{t-i} \): Errors at previous time steps (\( t-1, t-2, \dots, t-5 \)).</li>
     <li>\( \epsilon_t \): Error term at time \( t \).</li>
 </ul>
+
 
 </ul><h3>ARIMA Model Application to Python</h3>
 
@@ -227,6 +242,7 @@
       <li><strong>[4] Fotia, Pasquale, and Massimiliano Ferrara. 2023.</strong> "A Different Approach for Causal Impact Analysis on Python with Bayesian Structural Time-Series and Bidirectional LSTM Models." <em>Atti della Accademia Peloritana dei Pericolanti</em>.</li>
       <li><strong>[5] Nielsen, Michael. 2015.</strong> <em>Neural Networks and Deep Learning</em>. Determination Press.</li>
       <li><strong>[6] Ning, Yanrui, Hossein Kazemi, and Pejman Tahmasebi. 2022.</strong> "A Comparative Machine Learning Study for Time Series Oil Production Forecasting: ARIMA, LSTM, and Prophet." <em>Computers & Geosciences</em>, vol. 164, 105126.</li>
+      <li><strong>[7] Tinungki, G.M. 2019.</strong> "The Analysis of Partial Autocorrelation Function in Predicting Maximum Wind Speed." <em>IOP Conference Series: Earth and Environmental Science</em>, vol. 235, 012097. <a href="https://doi.org/10.1088/1755-1315/235/1/012097">https://doi.org/10.1088/1755-1315/235/1/012097</a>.</li>
     </ul>
   </div>
 
