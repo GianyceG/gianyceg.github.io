@@ -106,12 +106,15 @@
 <p><em>Source: <a href="https://www.researchgate.net/publication/348592737/figure/fig3/AS:981645804970018@1611054006754/Examples-for-stationary-and-non-stationary-time-series.png" target="_blank">Classification of Time Series</a></em></p>
 
 <p>Prior to finding the ACF/PACF, it is obligated for us to know if the data that is obtained is stationary or nonstationary. This is important because if the data is not stationary, the data cannot perform the ARIMA model accurately. Therefore, in order to determine if the model is stationary, it can be visualized or the Dickey-Fuller Test can be performed to determine the classification of the time series data.</p>
+<p>When differencing is applied and observed, the \(p\) order deals with the AR model and it is based on the significant spikes from the PACF plot. The MA model, \(q\) order is determined if the ACF plots have sharp cut-off after lags. If there has been any differencing applied to the model, \(d\) is determined by the order of the differencing (i.e. how many times the differencing has been applied).   </p>
+<p>After the strongest combination of the \( (p, d, q) \) have been selected, it is possible to then run the ARIMA model and see the results. At times, it can be difficult to physically pick out the correct combination. If this becomes the case, there are machine learning approaches to choose the appropriate orders.</p>
 
 <h2>Bayesian Structural Time Series Model</h2>
-
+- This section is going to generally discuss the structure of Bayesian model. It will be easier once the code is complete to fill out. 
 
 <h2>Limitations</h2>
 <p> This is going to discuss limitations of the models selected.</p>
+
 </div>
   
  <!-- Tab content for Methods for COVID-19 -->
@@ -124,7 +127,11 @@
     <p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Within this capstone, I will show how the predictions will look when forecasted with ARIMA, SARIMA, and Bayesian STS. Then, I will compare my results, decide which is best suited for the COVID-19 dataset, and revisit the limitations of the models with the results of their applications. </p>
     <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.
     <p>ARIMA is well-suited for forecasting because it applies mathematical techniques to smooth non-stationary time series data, making it easier to predict future values by analyzing historical patterns. These models estimate and extrapolate future states based on trends observed in past and present data. The use of ARIMA for univariate forecasting in this context is ideal for capturing the patterns in the COVID-19 dataset.</p>  
-  <p>My ARIMA(5,0,5) Model:</p>
+  
+    <h3>ARIMA Applied to Python</h3>
+    <p>The key libraries utilized for processing my ARIMA model were <strong>Pandas</strong>, <strong>Matplotlib</strong>, and <strong>Statsmodels</strong>. I used <strong>Pandas</strong> extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. <strong>Matplotlib</strong> was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. <strong>Statsmodels</strong> was used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
+  
+    <p>My ARIMA Model:</p>
 <p>For this specific COVID-19 data and the model that I will end up generating, the following is the mathematical expression of my ARIMA model in general terms:</p>
 <p>
     \[Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_5 Y_{t-5} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_5 \epsilon_{t-5} + \epsilon_t\]
@@ -139,12 +146,7 @@
     <li>\( \epsilon_{t-i} \): Errors at previous time steps (\( t-1, t-2, \dots, t-5 \)).</li>
     <li>\( \epsilon_t \): Error term at time \( t \).</li>
 </ul>
-
-
-</ul><h3>ARIMA Model Application to Python</h3>
-
-<p>The key libraries utilized for processing my ARIMA model were <strong>Pandas</strong>, <strong>Matplotlib</strong>, and <strong>Statsmodels</strong>. I used <strong>Pandas</strong> extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. <strong>Matplotlib</strong> was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. <strong>Statsmodels</strong> was used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
-      
+    
 <h4>Process</h4>
 <p>The process of applying my ARIMA model involved several key steps. It is especially important to note that the results were specified down to the Florida, USA level due to the mass size of the data.:</p>
 
