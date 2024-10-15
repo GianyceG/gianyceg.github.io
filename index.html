@@ -138,6 +138,23 @@
   <li>I fitted the model and checked the residuals for white noise.</li>
   <li>Developed a forecast for the next 30 days for the state of Florida.</li>
 </ol>
+      <h2>SARIMA Model with Weekly Seasonality</h2>
+    
+    <p>After performing the ARIMA model, it can be seen that the data would have been better fitted with a SARIMA model. SARIMA, an extention of ARIMA, also works with linear regression however takes into consideration of the complexity that seasonality can hold within our data. As it can be seen in the EDA, the data has a cylcial pattern. This is common within different epidemiolgy such as flu season, where there are times the data spikes and decreases as medical advances (in our case COVID-19 vaccines or leaving the winter season) can cause diagnosis of COVID-19 to increase or decrease.</p>
+    <p>Within the code we explored, the seasonal part of the SARIMA model would look like:</p>
+    <pre><code>
+    C_t = ϕ_1 C_{t-1} + θ_1 ε_{t-1} + Φ_1 C_{t-7} + Θ_1 ε_{t-7}
+    </code></pre>
+        <li><b>C_t</b>: The value of the confirmed cases at time <i>t</i>.</li>
+        <li><b>ϕ_1</b>: Non-seasonal autoregressive (AR) term, which represents the influence of the immediate past value <code>C_{t-1}</code> on the current value.</li>
+        <li><b>θ_1</b>: Non-seasonal moving average (MA) term, which represents the influence of the previous error <code>ε_{t-1}</code> on the current value.</li>
+        <li><b>Φ_1</b>: Seasonal autoregressive (SAR) term, which represents the influence of the past value one season ago (in this case, <code>C_{t-7}</code>) on the current value, capturing weekly patterns.</li>
+        <li><b>Θ_1</b>: Seasonal moving average (SMA) term, which represents the influence of the error from one season ago (in this case, <code>ε_{t-7}</code>) on the current value, also capturing weekly patterns.</li>
+        <li><b>ε_t</b>: Error term at time <i>t</i>.</li>
+    </ul>
+</body>
+</html>
+
   <h3>Bayesian Structural Time Series Model (BSTS)</h3>
 <p>The BSTS model can be represented as follows:</p>
 <p>
