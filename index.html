@@ -226,33 +226,22 @@
 </body>
 </html>
 
-  <h3>Bayesian Structural Time Series Model (BSTS)</h3>
-<p>The BSTS model can be represented as follows:</p>
-<p>
-\[Y_t = T_t + S_t + X_t \beta + \epsilon_t\]
-</p>
+<h2>Bayesian Structural Time Series Model (BSTS)</h2>
+<p>The BSTS model can now be expressed as:</p>
+<p>\[
+Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
+\]</p>
+
 <p>Where:</p>
 <ul>
-  <li>\( Y_t \) is the observed value of the time series at time \( t \) (e.g., COVID-19 confirmed cases in Florida).</li>
-  <li>\( T_t \) represents the trend component, which captures the overall movement of the COVID-19 cases over time.</li>
-  <li>\( S_t \) is the seasonal component, used to model recurring weekly in my COVID-19 data.</li>
-  <li>\( X_t \) represents the regressors, which include external variables such as public policies, mobility, or vaccination rates.</li>
-  <li>\( \beta \) is the vector of regression coefficients for the regressors.</li>
-  <li>\( \epsilon_t \) is the error term at time \( t \), accounting for random noise.</li>
+  <li>\( Y_t \): The observed value of the time series at time \( t \) (the confirmed COVID-19 cases in Florida).</li>
+  <li>\( \phi_t \): The trend component capturing the overall movement in the COVID-19 cases over time.</li>
+  <li>\( \Phi_t \): The seasonal component, accounting for recurring patterns (e.g., weekly increases in COVID-19 cases).</li>
+  <li>\( X_t \): External regressors such as public policies, mobility data, or vaccination rates.</li>
+  <li>\( \beta \): A vector of regression coefficients corresponding to the regressors.</li>
+  <li>\( \epsilon_t \): Error term at time \( t \), accounting for random noise.</li>
 </ul>
-
-<p>For the COVID-19 data in Florida, the BSTS model captures the underlying trend, any seasonal effects (such as pandemic waves or reporting delays), and the effect of external factors like public health measures. Bayesian estimation allows for uncertainty quantification, and the components are estimated using Markov Chain Monte Carlo (MCMC) methods to fit the model.</p>
-
-<h4>Process ( This is GENERAL right now, WILL make more specific as I code) </h4>
-<ol>
-  <li>Load the dataset and ensure all necessary variables are in the appropriate format for time series analysis (e.g., convert dates to datetime format, handle missing values).</li>
-  <li>Define the components of the BSTS model, such as the trend, seasonal, and regression components. Each component captures a specific feature of the time series, like long-term patterns or periodicity.</li>
-  <li>Use a Bayesian approach to estimate the model parameters based on the observed data. This involves setting priors and using Markov Chain Monte Carlo (MCMC) methods to fit the model.</li>
-  <li>Assess model fit by evaluating posterior distributions of parameters, inspecting residuals, and computing prediction intervals to ensure the model is capturing the underlying patterns of the data.</li>
-  <li>Use the fitted BSTS model to generate future forecasts. Predictive intervals are also computed, allowing for uncertainty quantification in the forecasts.</li>
-  <li>Perform model diagnostics such as comparing predictions to actual values (cross-validation) or calculating prediction accuracy metrics like Mean Absolute Error (MAE) to validate the model's performance.</li>
-  <li>Plot the time series, model components, and forecasted values to visually evaluate how well the model explains the data.</li>
-</ol>
+<p><strong>EDIT ME refer to word document</strong></p>
     
  <h2>Methods for CO2 Emission Forecasting</h2>
  <h2>Data Cleaning</h2>
