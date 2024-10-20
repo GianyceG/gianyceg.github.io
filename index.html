@@ -110,7 +110,19 @@
 <p>After the strongest combination of the \( (p, d, q) \) have been selected, it is possible to then run the ARIMA model and see the results. At times, it can be difficult to physically pick out the correct combination. If this becomes the case, there are machine learning approaches to choose the appropriate orders.</p>
 
 <h2>Bayesian Structural Time Series Model</h2>
-- This section is going to generally discuss the structure of Bayesian model. It will be easier once the code is complete to fill out. <strong> EDIT ME </strong>
+  
+<p> Fundamentally, this theorem is unique from ARIMA due to differences in the interpretation of what “probability” means. We will explore criticisms later, but it is important to remember this distinction when understanding the model differences. Bayesian inference is a method of statistical inference where available knowledge about parameters in a statistical model is updated with information from observed data. <a href="https://www.nature.com/articles/s43586-020-00001-2" target="_blank">A Guide to Bayesian Inference</a>. </p>
+Assume that you have a sample of observations \( y_1, \dots, y_n \) of a random variable \( Y \sim f(y \mid \theta) \), where \( \theta \) is a parameter for the distribution. Here consider \( \theta \) to be a random variable too. Following Bayes Theorem (its continuous version), the following is true:
+\[f(\theta \mid y) = \frac{f(y \mid \theta) f(\theta)}{f(y)} = \frac{f(y \mid \theta) f(\theta)}{\int f(y \mid \theta) f(\theta) \, d\theta}\]
+- The function \( f(y \mid \theta) \) is called the **likelihood**.
+- \( f(\theta) \) is the **prior distribution** of \( \theta \).
+Note that \( f(y) \) does not depend on \( \theta \) (just on the data), therefore it can be considered as a "normalizing constant". In addition, it is often the case that the integral above is not easy to compute. Nevertheless, it is enough to consider the relation:
+\[f(\theta \mid y) \propto \text{likelihood} \times \text{prior}\]
+(Here \( \propto \) denotes the proportionality relation.)
+<p> Now, for Bayesian Structural Time-Series Models, the time series can be broken down into four basic models depending on the following: a level, a local trend, seasonal impacts, and an error term. Structural Time Series models can be defined by the following:</p>
+<div class="equation"> <div> \[ y_t = Z_t^T \alpha_t + \varepsilon_t \] </div> 
+<div class="equation-number">(4)</div> </div> <div class="equation"> <div> \[ \alpha_{t+1} = T_t \alpha_t + R_t \eta_t \] </div> <div class="equation-number">(5)</div> </div>
+<p> Equation (4) and Equation (5) represent the structure of the model. Equation (4) is trying to understand the distribution of the Y_t’s of the data, while Equation (5) is closely related to understanding the distribution of the parameters. It provides the evolution model for the parameters and how they change overtime. Because the vector evolves through randomness, it describes the distribution of the hidden parameters at the next step. This is crucial because for the Bayesian inference to hold, updating the beliefs of the parameters helps incorporate both the priors and the observed. </p>
 
 <h2>Criticism and Limitations</h2>
   <p> The key distinction between the ARIMA and Bayesian methods lies in their underlying theoretical perspectives: frequentist vs. Bayesian. In the frequentist approach (as used in ARIMA models), parameters are treated as fixed values that do not change once estimated. The data is analyzed under the assumption that these parameters have unique, fixed points. </p>
