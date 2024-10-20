@@ -54,6 +54,8 @@
     <button class="tablinks" onclick="openTab(event, 'LitReview')" id="defaultOpen">Literature Reviews</button>
     <button class="tablinks" onclick="openTab(event, 'Intro')">Introduction</button>
     <button class="tablinks" onclick="openTab(event, 'Methods')">Methods</button>
+    <button class="tablinks" onclick="openTab(event, 'Results')">Results</button>
+    <button class="tablinks" onclick="openTab(event, 'Presentation')">Presentation</button>
     <button class="tablinks" onclick="openTab(event, 'References')">References</button>
   </div>
 
@@ -265,7 +267,17 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 <h3>SARIMA Model:</h3>
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
 
-</div>    
+</div>  
+
+<!-- Tab content for Results -->
+<div id="Results" class="tabcontent">
+
+<!-- Tab content for Presentation -->
+<div id="Presentation" class="tabcontent">
+<h3>Project Presentation</h3>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ3TkmXyN6xyz-your-presentation-id/pub?start=false&loop=false&delayms=3000" 
+        frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
 <!-- Tab content for References -->
 <div id="References" class="tabcontent">
   <h2>References</h2>
