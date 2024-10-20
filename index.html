@@ -202,20 +202,25 @@
     <li><strong>H₁:</strong> The data is stationary.</li>
 </ul>
 <p>Since the p-value was greater than 0.05, I failed to reject the null hypothesis, indicating non-stationarity. I applied first-order differencing to make the data stationary. Using the Akaike Information Criterion (AIC), I identified the optimal ARIMA parameters \((p, d, q)\) for modeling. After fitting the model, I checked the residuals for white noise to validate the model. Finally, I generated a 30-day forecast of confirmed COVID-19 cases for the state of Florida, offering insights into potential future trends.</p>
+    
+  <p>Developed SARIMA Model:</p>
+    <p>For this COVID-19 dataset, the SARIMA model extends ARIMA by incorporating seasonality. The mathematical expression of my SARIMA model is:</p>
     <p>After performing the ARIMA model, it can be seen that the data would have been better fitted with a SARIMA model. SARIMA, an extention of ARIMA, also works with linear regression however takes into consideration of the complexity that seasonality can hold within our data. As it can be seen in the EDA, the data has a cylcial pattern. This is common within different epidemiolgy such as flu season, where there are times the data spikes and decreases as medical advances (in our case COVID-19 vaccines or leaving the winter season) can cause diagnosis of COVID-19 to increase or decrease.</p>
     <p>Within the code we explored, the seasonal part of the SARIMA model would look like:</p>
     
-    <pre><code>
-    C_t = ϕ_1 C_{t-1} + θ_1 ε_{t-1} + Φ_1 C_{t-7} + Θ_1 ε_{t-7}
-    </code></pre>
-        <li><b>C_t</b>: The value of the confirmed cases at time <i>t</i>.</li>
-        <li><b>ϕ_1</b>: Non-seasonal autoregressive (AR) term, which represents the influence of the immediate past value <code>C_{t-1}</code> on the current value.</li>
-        <li><b>θ_1</b>: Non-seasonal moving average (MA) term, which represents the influence of the previous error <code>ε_{t-1}</code> on the current value.</li>
-        <li><b>Φ_1</b>: Seasonal autoregressive (SAR) term, which represents the influence of the past value one season ago (in this case, <code>C_{t-7}</code>) on the current value, capturing weekly patterns.</li>
-        <li><b>Θ_1</b>: Seasonal moving average (SMA) term, which represents the influence of the error from one season ago (in this case, <code>ε_{t-7}</code>) on the current value, also capturing weekly patterns.</li>
-        <li><b>ε_t</b>: Error term at time <i>t</i>.</li>
-    </ul>
-    
+    <p>\[ Y_t = c + \phi_1 Y_{t-1} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \Phi_1 Y_{t-s} + \Theta_1 \epsilon_{t-s} + \epsilon_t \] </p>
+    <p>Where:</p>
+<ul>
+    <li>\( Y_t \): The value of confirmed cases at time \( t \).</li>
+    <li>\( c \): Constant term (intercept).</li>
+    <li>\( \phi_i \) (\( i = 1, 2, \dots, p \)): Coefficients for the non-seasonal AR terms.</li>
+    <li>\( \theta_i \) (\( i = 1, 2, \dots, q \)): Coefficients for the non-seasonal MA terms.</li>
+    <li>\( \Phi_1 \): Seasonal AR term, representing the influence from one seasonal lag (e.g., \( Y_{t-s} \)).</li>
+    <li>\( \Theta_1 \): Seasonal MA term, representing the effect of an error from one seasonal lag (\( \epsilon_{t-s} \)).</li>
+    <li>\( s \): Seasonal period (e.g., weekly seasonality with \( s = 7 \)).</li>
+    <li>\( \epsilon_t \): Error term at time \( t \).</li>
+</ul>
+    <p>Now, the main difference between the ARIMA and the SARIMA is the addition of the \( s \) term. When I was exploring the data, it was seen that the data had an upward trend throughout the whole set, but also the data temporally increased every 7 days. Therefore, I chose to have a weekly seasonality within the dataset. The comparison between these two models can be seen in the results tab. </p>
     <iframe width="900" height="600" frameborder="0"
         src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/COVID19DataARIMAandSARIMA.html"></iframe>
 </body>
