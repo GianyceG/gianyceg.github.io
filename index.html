@@ -260,13 +260,27 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
     <li><strong>H1:</strong> The data is stationary.</li>
 </ul>
 
-<p>Using a significance level of 0.05, if the p-value is less than 0.05, we reject the null hypothesis. In this case, the p-value from the ADF test was 1, which is greater than 0.05. This indicates that the data is non-stationary, and stationarization is required.</p>
-<p>To address this, I applied the differencing technique. After differencing the data, I re-applied the ADF test, which resulted in a p-value of 0.00005, indicating the data is now stationary.</p>
-<p>Next, I examined the Partial Autocorrelation Function (PACF) and Autocorrelation Function (ACF) plots derived from the differenced data. Based on these plots, two potential ARIMA models were identified: (3,1,2) and (3,1,1). I used Python's Statsmodels library to fit these models and selected the model with the lowest Akaike Information Criterion (AIC) value, which turned out to be the (3,1,2) model. This model was then used to forecast CO₂ emissions up to 2025. While the forecast captured the general upward trend, it did not adequately represent the seasonality in the data.</p>
-
-<h3>SARIMA Model:</h3>
+<p>Using a significance level of 0.05, if the p-value is less than 0.05, we reject the null hypothesis. In this case, the p-value from the ADF test was 1, which is greater than 0.05. This indicates that the data is non-stationary, and stationarization is required.After applying the differencing technique to the data, the Augmented Dickey-Fuller (ADF) test was re-conducted. The resulting p-value of 0.00005 provides strong evidence to reject the null hypothesis (\(H_0\)), confirming that the series is now stationary (\(p < 0.05\)).Next, I examined the Partial Autocorrelation Function (PACF) and Autocorrelation Function (ACF) plots derived from the differenced data. Based on these plots, two potential ARIMA models were identified: (3,1,2) and (3,1,1). I used Python's Statsmodels library to fit these models and selected the model with the lowest Akaike Information Criterion (AIC) value, which turned out to be the (3,1,2) model. This model was then used to forecast CO₂ emissions up to 2025. While the forecast captured the general upward trend, it did not represent the seasonality in the data.</p>
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
+<p>Given the specified parameters from the AIC model, (3,1,2), it is now possible to mathematically represent our ARIMA model with the following:</p>
+<p>\[Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \phi_3 Y_{t-3} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \epsilon_t\]</p>
+<p>Where:</p>
+<ul>
+  <li>\( Y_t \): The value of the CO₂ emissions at time \( t \).</li>
+  <li>\( c \): Constant term (intercept).</li>
+  <li>\( \phi_i \) (\( i = 1, 2, 3 \)): Coefficients for the Auto-Regressive (AR) terms (from lag 1 to lag 3).</li>
+  <li>\( Y_{t-i} \): The value of the time series at previous time steps (\( t-1, t-2, t-3 \)).</li>
+  <li>\( \theta_i \) (\( i = 1, 2 \)): Coefficients for the Moving Average (MA) terms (past errors).</li>
+  <li>\( \epsilon_{t-i} \): Errors at previous time steps (\( t-1, t-2 \)).</li>
+  <li>\( \epsilon_t \): Error term at time \( t \).</li>
+</ul>
+<p>The AR part includes three lags,\phi_1, \phi_2, \phi_3. And the MA part containes two past errors, \theta_1, \theta_2. Then, the differencing allowed there to be an impact on the \(d\) term.  </p>
 
+<p>Now, this ARIMA model, perhaps due to this dataset being significantly smaller, has not captured the seasonality as appropriately. This will be continued to be explored in the results tab. However, this is why it is important to consider the SARIMA in this case as well.</p>
+<p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
+ <iframe width="900" height="600" frameborder="0" 
+        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb">
+</iframe>
 </div>  
 
 <!-- Tab content for Results -->
