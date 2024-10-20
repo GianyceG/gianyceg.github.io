@@ -244,20 +244,13 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 <p><strong>EDIT ME refer to word document</strong></p>
     
  <h2>Methods for CO2 Emission Forecasting</h2>
- <h2>Data Cleaning</h2>
+<h3>Data Cleaning</h3>
+<p>Upon downloading the Mauna Loa CO₂ dataset from the NOAA website (<a href="https://gml.noaa.gov/ccgg/trends/">Mauna Loa CO₂ data</a>), several adjustments were necessary to ensure the data was ready for analysis. The primary reason for choosing this dataset was its reliability and the fact that it is consistently updated on a monthly basis, providing up-to-date information for meaningful forecasting.</p>
+<p>The dataset initially contained a descriptive section at the top, providing details on public use, data stewardship, and general information. However, when read into Python, this section was misinterpreted as part of the dataset, leading to missing or misaligned column headers. This required manual deletion to correctly structure the data.</p>
+<p>Additionally, the dataset documentation mentioned the presence of missing days, which could introduce a high or low bias in the monthly averages. These irregularities required careful handling to avoid skewed results. Furthermore, a significant gap occurred due to the eruption of the Mauna Loa volcano, which suspended data collection between November 29, 2022, and July 2023. This interruption needed to be addressed during the analysis, as it introduced a discontinuity in the time series.</p>
+<p>The dataset also lacked explicit "Year" and "Month" columns, although these were implied by the "decimal.date" field. To facilitate easier analysis, "Year" and "Month" headings were added, derived from the decimal date values. This preparation ensured the data was clean, consistent, and ready for forecasting analysis.</p>
 
-<p>Upon downloading the file directly from the website, several adjustments were necessary:</p>
-
-<ol>
-    <li>The dataset included a descriptive section at the top, detailing information about public use, data stewardship, and other general information. In the CSV file, this was misinterpreted as part of the data, resulting in a lack of proper column headers. This section needed to be deleted to correctly read the dataset.</li>
-    <li>The dataset documentation also mentioned that some missing days are asymmetric, which could introduce a high or low bias in the monthly averages. This required attention when handling missing data.</li>
-    <li>Due to the eruption of the Mauna Loa volcano, data collection at the Mauna Loa Observatory was suspended from November 29, 2022, and resumed in July 2023. This gap in the data needed to be addressed during analysis.</li>
-    <li>The original dataset did not explicitly include "Year" and "Month" columns; however, they were implied by the "decimal.date" field. To facilitate analysis, these headings were added based on the decimal date values.</li>
-</ol>
-
-<h2>Methods for CO2 Emission Forecasting</h2>
-
-<h3>ARIMA Method:</h3>
+<h3>ARIMA/SARIMA Methods:</h3>
 
 <p>To forecast CO2 emissions, we first download the dataset from the NOAA Global Monitoring Laboratory website, where they monitor monthly CO2 emissions at Mauna Loa. After downloading the dataset, I loaded it into a Jupyter Notebook for graphing and exploration.</p>
 <p>Initially, the graph of the CO2 data showed both a seasonal pattern and an upward trend, suggesting that the data is non-stationary. To confirm this, I applied the Augmented Dickey-Fuller (ADF) test, which tests the following hypotheses:</p>
