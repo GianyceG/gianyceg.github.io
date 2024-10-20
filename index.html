@@ -116,6 +116,8 @@
 <p>Bayesian inference provides a powerful framework to update beliefs as new data becomes available. It allows us to calculate the probability of an event occurring, given prior knowledge and new evidence. A simplified version of Bayes’ theorem looks like this:</p>
 
 <img src="images/Screenshot 2024-10-20 011921.png" alt="Bayes' Theorem Visualization" width="500" height="250">
+<p><em>Source: <a href="https://sreedattavajinapally.medium.com/bayesian-time-series-forecasting-89c8ec4a1dde" target="_blank">Bayesian Time Series Forecasting</a></em></p>
+
 
 <p>Referring to the image explaining the visualization, it breaks down the components as follows:</p>
 <ul>
@@ -155,20 +157,15 @@
 
 </div>
   
- <!-- Tab content for Methods for COVID-19 -->
+<!-- Tab content for Methods for COVID-19 -->
   <div id="Methods" class="tabcontent">
     <h2>Methods </h2>
-    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 data and the other on the NOAA Mauna Loa CO2 emission dataset.  I will apply my models to both datasets and compare their forecasting strengths to one another. Then, I will generate an overall summary on strengths, weaknesses, and limitations that were faced throughout my project. </p>
-
-    <h2>Johns Hopkins COVID-19 Exploration </h2>
-    <p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData Repository and Our World in Data (OWID), with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). AR and ARIMA models are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Within this capstone, I will show how the predictions will look when forecasted with ARIMA, SARIMA, and Bayesian STS. Then, I will compare my results, decide which is best suited for the COVID-19 dataset, and revisit the limitations of the models with the results of their applications. </p>
-    <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.
-
-    <h3>ARIMA Applied to Python</h3>
-    <p>The key libraries utilized for processing my ARIMA model were <strong>Pandas</strong>, <strong>Matplotlib</strong>, and <strong>Statsmodels</strong>. I used <strong>Pandas</strong> extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. <strong>Matplotlib</strong> was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. <strong>Statsmodels</strong> was used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
-
-    <h4>Process</h4>
-    <p>  I processed the data from the Johns Hopkins dataset. They had the data already prepared and cleaned, organized by the country, province, state, update, confirmed cases, and more variables. These are the ones I focused on. After loading the dataset into Jupyter Notebook, I am able to observe the columns and data. To explore the data, I begin by applying a rolling statistic over the dataset. This is to show the rolling window along the time series, and with ARIMA it is particularly of interest as it is the visualization of moving averages. These averages provide a smoothed representation of the data by averaging fluctuations. </p>
+    <p>My project explores time series forecasting using two distinct datasets: one focused on COVID-19 case trends and the other on the NOAA Mauna Loa CO₂ emission dataset. I will apply my forecasting models to both datasets and evaluate their predictive performance. The models’ strengths will be compared across the two datasets to assess their ability to capture different patterns and trends. Finally, I will generate a summary detailing the strengths, weaknesses, and limitations encountered throughout the project.</p>    
+<h3>Johns Hopkins COVID-19 Exploration </h3>
+<p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData, with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). Both are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Within this capstone, I will demonstrate how the predictions appear when forecasted using ARIMA, SARIMA, and BSTS. Then, I will compare the results, determine which model is best suited for the COVID-19 dataset, and revisit the limitations of the models based on the outcomes of their applications.</p>
+  <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.  <p>
+    <p>Using Python, the key libraries utilized for processing my ARIMA model were Pandas, Matplotlib, and Statsmodels. I used Pandas extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. Matplotlib was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. Statsmodelswas used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
+<p>To begin the data exploration, I processed the data from the Johns Hopkins dataset. The dataset was already prepared, cleaned, and organized by country, province, state, date, confirmed cases, and more. After loading the dataset into Jupyter Notebook, I examined its structure and content. To explore the dataset further, I applied a rolling statistic. This approach visualizes a moving window along the time series, which is particularly useful with ARIMA as it helps to observe moving averages. These rolling averages smooth out short-term fluctuations, providing a clearer view of the underlying trends in the data.</p>
     <img src="images/Screenshot 2024-10-15 064846.png" alt="Rolling_Mean_STD" width="600" height="300">
     <p><em>Source: Rolling Mean and Rolling Standard Deviation over 7-day periods, showing the trend of confirmed COVID-19 cases in Florida (2020-2023).</em></p>
 
@@ -179,8 +176,8 @@
     <li><strong>H1:</strong> The data is stationary.</li>
 </ul>
   <p> Due to the fact that my p-value was greater than 0.05, we fail to reject the null hypothesis, and therefore perform a first order differencing on the model. Which is then seen to be stationary under this hypothesis. Since this has now confirmed that the data is stationary, a first order differencing is now necessary to continue.<\p>
-   <p> After applying differencing, the following graph is formulated. On this differenced graph of the data, the ADF test is reapplied. </p> 
-    <li>Using the AIC function, I determined the most ideal ARIMA model parameters for (p,d,q).</li>
+  <p> After applying differencing, the following graph is formulated. On this differenced graph of the data, the ADF test is reapplied. </p> 
+  <li>Using the AIC function, I determined the most ideal ARIMA model parameters for (p,d,q).</li>
   <li>I fitted the model and checked the residuals for white noise.</li>
   <li>Developed a forecast for the next 30 days for the state of Florida.</li>
 </ol>
