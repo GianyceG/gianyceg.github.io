@@ -282,7 +282,7 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
         src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb">
 </iframe>
 <h3>Bayesian STS Methods:</h3>
-<p>After the general data cleaning as referenced above, I originally attempted to use the PyMC3 library, but it was outdated. Instead, I used PyMC and TensorFlow Probability (TFP), both of which support Bayesian modeling methods. TFP offers a lower-level API but requires additional shape handling, as seen in the code through the use of <code>.numpy()</code> and <code>.squeeze()</code> when defining the time series model.</p>
+<p>After the general data cleaning as referenced above, I originally attempted to use the PyMC3 library, but it was outdated. Instead, I used PyMC and TensorFlow Probability (TFP), both of which support Bayesian modeling methods. TFP offers a lower-level API but requires additional shape handling, as seen in the code through the use of .numpy() and .squeeze() when defining the time series model.</p>
 <pre><code>
 file_path = r"C:\Users\gesua\Documents\Capstone_Project\Capstone\co2_mm_mlo.csv"
 co2_data = pd.read_csv(file_path)
@@ -291,8 +291,10 @@ co2_data['date'] = pd.to_datetime(co2_data[['year', 'month']].assign(day=1))
 </code></pre>
 <p>This code emphasizes the data cleaning process. After importing, the columns are renamed to <code>year</code>, <code>month</code>, and <code>date</code> for consistency. Then, the data is processed into a datetime format, which enables easy plotting of atmospheric CO2 levels over the years.</p>
 <img src="images/Screenshot 2024-10-27 051935.png" alt="Graph of atmospheric CO2 levels over the years">
+<p>The graph visualizes the seasonality pattern alongside the trend across the time series data. The seasonality is represented by the periodic shifts seen diagonally, indicating repeating monthly cycles (e.g., January through December). This diagonal pattern emerges from transforming the time data into a cyclic sequence, such as [1, 2, 3, ..., 12, 1, 2, ...]. In the design matrix, these cycles become evident, helping capture recurring patterns year-over-year.</p> <p>The trend component, on the other hand, models the general direction of the data over time, reflecting the increase in CO2 levels. By combining the seasonal pattern with the trend, this visualization lays the foundation for the time series regression model. Specifically, in the code, the dummy variables capture these seasonal effects, and the relationship is modeled using a linear regression framework with a likelihood of \(Y \sim N(X\beta, \sigma^2)\). As part of the Bayesian model, Gaussian priors are incorporated, allowing for more robust inference as the model develops.</p>
+<img src="images/Screenshot 2024-10-27 051948.png " alt="Graph of Seasonality and Trend of the Data">
 
-</div>  
+  </div>  
 
 <!-- Tab content for Results -->
 <div id="Results" class="tabcontent">
