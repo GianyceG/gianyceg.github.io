@@ -310,15 +310,19 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 <!-- Tab content for Results -->
 <div id="Results" class="tabcontent">
   <h2>Results</h2>
+  <h3>COVID-19</h3>
   <p>In this section, I will review the COVID-19 dataset using ARIMA, SARIMA, and BSTS models to evaluate the forecasted trends and key results.</p>
   <p><strong> ADD FORECASTING IMAGE HERE</strong></p>
   <iframe src="tables/covid_results_table.html" width="100%" height="200" frameborder="0"></iframe>
-  
+
+  <h3>CO2 Emmissions</h3>
   <p>In this section, I will review the NOAA dataset using ARIMA, SARIMA, and BSTS models to evaluate the forecasted trends and key results.</p>
-  <p><strong> ADD FORECASTING IMAGE HERE</strong></p>
+  <p><strong> ADD ARIMA FORECASTING IMAGE HERE</strong></p>
   <p>The original pattern and the forecasted are represented in blue (original) and forecasted (red). The original model was seen to trend upwards, and we can see that the forecasted is also prejected to follow the dame trend. This indicates to us that there is a continued increase in CO₂ emissions. There is a variate in the seasonal projections, as they have become less profound as the forecast extends into the future. This ARIMA model is suggesting that although CO₂ levels are projected to continue to rise, the seasonality may become less impactful over time. This seasonality is seen differently when looking at the SARIMA model. This model does seem to capture the historical seasonality and upward trend. </p>
   <p>Now, when analyzing the RMSE, comparing the fact that the RMSE of ARIMA and the SARIMA where slightly different, it is important to note that this minor difference could indicate a difference in model performance, perhaps favoring the ARIMA model. However, both of the values were significant in the sense that the lower a RMSE value is, the more fitted the model appears with the data. This is important since it shows that the data is being captured well. </p><p>One of the key limitations with both ARIMA and SARIMA models is how they handle abrupt shifts and irregularities. As mentioned earlier, the dataset includes a period impacted by a volcanic eruption, which may have disrupted the data and affected how the models generate forecasts. This irregularity could skew the results, as the models rely on consistent patterns for accuracy. Additionally, while SARIMA accounts for seasonality, making it better suited for cyclical trends, that added complexity can introduce more noise into the model. This added noise might explain the slightly higher RMSE observed in the SARIMA model compared to ARIMA, as the increased complexity can lead to less precise predictions.</p>
   <iframe src="tables/co2_results_table.html" width="100%" height="200" frameborder="0"></iframe>
+  <img src="images/Screenshot 2024-10-27 052017.png " alt="training data, forecast, actual data graph">
+  <p></p>
 </div>
 
 <!-- Tab content for Presentation -->
