@@ -243,7 +243,7 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <li>\( \beta \): A vector of regression coefficients corresponding to the regressors.</li>
   <li>\( \epsilon_t \): Error term at time \( t \), accounting for random noise.</li>
 </ul>
-<p><strong>EDIT ME refer to word document</strong></p>
+<p><strong>edit me</strong></p>
     
  <h2>Methods for CO₂ Emission Forecasting</h2>
 <p>In this part of my methodology, I will explain the following: the data cleaning process for the NOAA dataset, the development and application of the ARIMA/SARIMA model on this dataset, and finally, the BSTS model. These models will be compared in a later section of the capstone to evaluate their performance on this dataset.</p>
@@ -251,7 +251,7 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 <h3>Data Cleaning</h3>
 <p>I downloaded the Mauna Loa CO₂ dataset from the NOAA website (<a href="https://gml.noaa.gov/ccgg/trends/">Mauna Loa CO₂ Data</a>) because of its reliability and regular updates, which makes it perfect for time series forecasting. However, before I could use the data, I had perform some data preparations. At the top of the file, there was a description about the data and how it should be used, but it got read as part of the dataset, which messed up the column headers. I had to delete that section to get everything aligned correctly. The dataset also mentioned some missing days, which could throw off the averages if not handled carefully. This part was important to keep the data unbiased. Another issue was the gap caused by the Mauna Loa volcano eruption, which stopped data collection from November 29, 2022, to July 2023. I had to account for this gap during my analysis so it wouldn’t affect my results. Lastly, the data didn't have separate "Year" and "Month" columns, even though the information was included in the decimal date field. To make things easier to work with, I added those columns by extracting the year and month from the decimal dates. After these adjustments, the dataset was ready for analysis.</p>
 
-<h3>ARIMA/SARIMA Methods:</h3>
+<h3>ARIMA/SARIMA Method:</h3>
 <p>To forecast CO₂ emissions, we first download the dataset from the NOAA Global Monitoring Laboratory website, where they monitor monthly CO₂ emissions at Mauna Loa. After downloading the dataset, I loaded it into a Jupyter Notebook for graphing and exploration.</p>
 <p>Initially, the graph of the CO₂ data showed both a seasonal pattern and an upward trend, suggesting that the data is non-stationary. To confirm this, I applied the Augmented Dickey-Fuller (ADF) test, which tests the following hypotheses:</p>
 
@@ -281,6 +281,8 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
  <iframe width="900" height="600" frameborder="0" 
         src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb">
 </iframe>
+<h3>Bayesian STS Methods:</h3>
+<p>After the general data cleaning as referenced above, originally I attempted to use PyMC3 library, but it was outdated so I used PyMC and Tensorflow Probability, which both hold Bayesian modeling methods. TFP offers a lower API comparison, but requires additional shape handling which can be seen in the code with the use of .numpy() and .squeeze(). and when defining the time series model. </p>
 </div>  
 
 <!-- Tab content for Results -->
