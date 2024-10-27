@@ -283,17 +283,28 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 </iframe>
 <h3>Bayesian STS Methods:</h3>
 <p>After the general data cleaning as referenced above, I originally attempted to use the PyMC3 library, but it was outdated. Instead, I used PyMC and TensorFlow Probability (TFP), both of which support Bayesian modeling methods. TFP offers a lower-level API but requires additional shape handling, as seen in the code through the use of .numpy() and .squeeze() when defining the time series model.</p>
-<pre><code>
-file_path = r"C:\Users\gesua\Documents\Capstone_Project\Capstone\co2_mm_mlo.csv"
-co2_data = pd.read_csv(file_path)
-co2_data.rename(columns={'year': 'year', 'date_month': 'month'}, inplace=True)
-co2_data['date'] = pd.to_datetime(co2_data[['year', 'month']].assign(day=1))
-</code></pre>
+    <pre><code>
+    file_path = r"C:\Users\gesua\Documents\Capstone_Project\Capstone\co2_mm_mlo.csv"
+    co2_data = pd.read_csv(file_path)
+    co2_data.rename(columns={'year': 'year', 'date_month': 'month'}, inplace=True)
+    co2_data['date'] = pd.to_datetime(co2_data[['year', 'month']].assign(day=1))
+    </code></pre>
 <p>This code emphasizes the data cleaning process. After importing, the columns are renamed to <code>year</code>, <code>month</code>, and <code>date</code> for consistency. Then, the data is processed into a datetime format, which enables easy plotting of atmospheric CO2 levels over the years.</p>
-<img src="images/Screenshot 2024-10-27 051935.png" alt="Graph of atmospheric CO2 levels over the years">
+    <img src="images/Screenshot 2024-10-27 051935.png" alt="Graph of atmospheric CO2 levels over the years">
 <p>The graph visualizes the seasonality pattern alongside the trend across the time series data. The seasonality is represented by the periodic shifts seen diagonally, indicating repeating monthly cycles (e.g., January through December). This diagonal pattern emerges from transforming the time data into a cyclic sequence, such as [1, 2, 3, ..., 12, 1, 2, ...]. In the design matrix, these cycles become evident, helping capture recurring patterns year-over-year.</p> <p>The trend component, on the other hand, models the general direction of the data over time, reflecting the increase in CO2 levels. By combining the seasonal pattern with the trend, this visualization lays the foundation for the time series regression model. Specifically, in the code, the dummy variables capture these seasonal effects, and the relationship is modeled using a linear regression framework with a likelihood of \(Y \sim N(X\beta, \sigma^2)\). As part of the Bayesian model, Gaussian priors are incorporated, allowing for more robust inference as the model develops.</p>
-<img src="images/Screenshot 2024-10-27 051948.png " alt="Graph of Seasonality and Trend of the Data">
-
+    <img src="images/Screenshot 2024-10-27 051948.png " alt="Graph of Seasonality and Trend of the Data">
+<p>After the visualizations, I used the prior predictive samples from the simple regression model as graphed in the beginning. Aith this, we now define the following function in python: </p>
+    <pre><code>intercept = yield root(tfd.Normal(0., 100., name="intercept"))</code></pre>
+  <p>This represents the intercept baseline of the time series, where we are modeling with the Gaussian prior, centered at 0 with a large standard deviation (in this case, 100) to allow flexibility within the timeseries. Because I do not have previous knowledge on the timeseries, I am attempting to make a model that is flexible that will cover the data. </p>
+    <pre><code>trend_coeff = yield root(tfd.Normal(0., 10., name="trend_coeff"))
+    seasonality_coeff = yield root(tfd.Sample(tfd.Normal(0., 1.), sample_shape=seasonality.shape[-1], name="seasonality_coeff"))
+    noise = yield root(tfd.HalfCauchy(loc=0., scale=5., name="noise_sigma"))
+    </code></pre>
+  <p>This code is capturing the seasonality, trend, applying shape and structure to the model definiton. The <code>sample_shape</code> is applying the 12 month seasonality, and the Half-Cauchy distribution is accounting for the noise, or randomness of the data. This also is ensuring that the variance remains positive.</p>
+  <p>After this, the observed likelihood is defined with the normal distribution with an ensured independence in the observations. This is implimented with <code>tfd.independent</code>.</p>
+  <p>Next, sampling the priors can be seen with the graph below. </p>
+    <img src="images/Screenshot 2024-10-27 052001.png " alt="Graph of Priors">
+  <p>In the figure, the multiple lines represent each one simulated time series. Since the priors were uninformed and generally applied, the prior prediction has a wide range.</p>
   </div>  
 
 <!-- Tab content for Results -->
