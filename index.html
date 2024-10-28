@@ -304,7 +304,10 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <p>After this, the observed likelihood is defined with the normal distribution with an ensured independence in the observations. This is implimented with <code>tfd.independent</code>.</p>
   <p>Next, sampling the priors can be seen with the graph below. </p>
     <img src="images/Screenshot 2024-10-27 052001.png " alt="Graph of Priors">
-  <p>In the figure, the multiple lines represent each one simulated time series. Since the priors were uninformed and generally applied, the prior prediction has a wide range.</p>
+  <p>Prior predictive samples from the simple regression model for the monthly CO2. Each line is one simulated time series, and they were uninformative priors, as they did not stem from the data set originally, but were applied general priors to follow with Gaussian distribution and are pre-defined parameters.</p>
+  <p>Next, I developed code for the actual forecast.</p>
+    
+    
   </div>  
 
 <!-- Tab content for Results -->
