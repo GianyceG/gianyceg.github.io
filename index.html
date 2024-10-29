@@ -304,9 +304,45 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <p>Next, sampling the priors can be seen with the graph below. </p>
     <img src="images/Screenshot 2024-10-27 052001.png " alt="Graph of Priors">
   <p>Prior predictive samples from the simple regression model for the monthly CO2. Each line is one simulated time series, and they were uninformative priors, as they did not stem from the data set originally, but were applied general priors to follow with Gaussian distribution and are pre-defined parameters.</p>
-  <p>Next, I developed code for the actual forecast.</p>
-    
-    
+  <p>Next, I developed code for the actual forecast. Which can be highlighted with the following code: </p>
+<pre><code> train_end_date = '2023-12'
+co2_training_data = co2_data.loc[:train_end_date, 'Monthly Average of CO2'].values.astype(np.float32)
+dates_train = co2_data.index[:len(co2_training_data)]
+co2_testing_data = co2_data.loc['2024-01':'2024-09', 'Monthly Average of CO2'].values.astype(np.float32)
+dates_test = co2_data.index[len(co2_training_data):len(co2_training_data) + len(co2_testing_data)]
+</code></pre>
+  <p>First, I have to prepare the training and test data. To summarize, training data is going to be the data that is used to highlight the historical data, and the testing data is defining the timeframe from January 2024 to September 2024. These dates are important since I am applying hold-out MAPE to compare optimization of the model.</p>
+<pre><code>model = sts.Sum(
+    components=[
+        sts.LocalLinearTrend(observed_time_series=co2_training_data),
+        sts.Seasonal(num_seasons=12, observed_time_series=co2_training_data)
+  ],
+    observed_time_series=co2_training_data)
+</code></pre> 
+<p>This code defines the BSTS model, seen by the LocalLinearTrend and the seasonal component. Since this is monthly data, there is a seasonality of 12 months to model the dataset. These two help the model to stretch the forecast into the future as it highlights the long-term trends and the seasonality variations.</p>
+
+<pre><code> variational_posteriors = tfp.sts.build_factored_surrogate_posterior(model=model)
+optimizer = tf.optimizers.Adam(learning_rate=0.1)
+tfp.vi.fit_surrogate_posterior(
+    target_log_prob_fn=model.joint_log_prob(co2_training_data),
+    surrogate_posterior=variational_posteriors,
+    optimizer=optimizer,
+    num_steps=200
+)
+</code></pre>
+<p>Variational surrogate posterior (or also known as Variational Inference) is used to cast an approximation on Bayesian inference for optimization. This shows the power of the TensorFlow Probability library as it seeking a 'surrogate' posterior and minimizes the KL divergence. In my code, it is approximating the posterior distribution of the model parameters. Then, using the Adam optimizer is being used to find the "best-fit" parameters.</p>
+<pre><code> forecast_dist = tfp.sts.forecast
+  (
+    model=model,
+    observed_time_series=co2_training_data,
+    parameter_samples=variational_posteriors.sample(50),
+    num_steps_forecast=9
+  )
+forecast_mean = forecast_dist.mean().numpy().squeeze()
+forecast_index = pd.date_range(dates_train[-1] + pd.DateOffset(months=1), periods=9, freq="M")
+ </code></pre>
+  <p>Finally, I am able to now forecast the next 9 months using the posterior samples that came from the VI, and thden generates the mean forecast and dates for the future months. After this, the following data was plotted and the outcome shows that the model predictions match the actual date of the data. </p>
+  <img src="images/Screenshot 2024-10-27 052017.png" alt="Graph of Priors">
   </div>  
 
 <!-- Tab content for Results -->
