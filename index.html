@@ -223,8 +223,7 @@
     <li>\( \epsilon_t \): Error term at time \( t \).</li>
 </ul>
     <p>Now, the main difference between the ARIMA and the SARIMA is the addition of the \( s \) term. When I was exploring the data, it was seen that the data had an upward trend throughout the whole set, but also the data temporally increased every 7 days. Therefore, I chose to have a weekly seasonality within the dataset. The comparison between these two models can be seen in the results tab. </p>
-    <iframe width="900" height="600" frameborder="0"
-        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/COVID19DataARIMAandSARIMA.html"></iframe>
+
 </body>
 </html>
 
@@ -278,9 +277,7 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 
 <p>Now, this ARIMA model, perhaps due to this dataset being significantly smaller, has not captured the seasonality as appropriately. This will be continued to be explored in the results tab. However, this is why it is important to consider the SARIMA in this case as well.</p>
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
- <iframe width="900" height="600" frameborder="0" 
-        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb">
-</iframe>
+
 <h3>Bayesian STS Methods:</h3>
 <p>After the general data cleaning as referenced above, I originally attempted to use the PyMC3 library, but it was outdated. Instead, I used PyMC and TensorFlow Probability (TFP), both of which support Bayesian modeling methods. TFP offers a lower-level API but requires additional shape handling, as seen in the code through the use of .numpy() and .squeeze() when defining the time series model.</p>
     <pre><code>
@@ -336,7 +333,7 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 </div>
 <!-- Tab content for References -->
 <div id="References" class="tabcontent">
-  <h2>References</h2>
+  <h2>References and Code</h2>
 <ul>
     <li><strong>[1] Kulshreshtha, Vikas, and N. K. Garg. 2020.</strong> "Predicting the New Cases of Coronavirus [COVID-19] in India by Using Time Series Analysis as Machine Learning Model in Python." <em>The Institution of Engineers (India)</em>.</li>
     <li><strong>[2] Demongeot J, Oshinubi K, Rachdi M, et al. 2021.</strong> "The Application of ARIMA Model to Analyze COVID-19 Incidence Pattern in Several Countries." <em>Journal of Mathematics and Computer Science</em>.</li>
@@ -350,6 +347,14 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
     <li><strong>[10] Thorakkattle, Muhammed Navas, et al. 2022.</strong> "Forecasting the Trends of Covid-19 and Causal Impact of Vaccines Using Bayesian Structural Time Series and ARIMA." <em>Annals of Data Science</em>, vol. 9(5), 1025–1047. <a href="https://doi.org/10.1007/s40745-022-00418-4">https://doi.org/10.1007/s40745-022-00418-4</a>.</li>
     <li><strong>[11] ResearchGate, 2021.</strong> "Examples for Stationary and Non-Stationary Time Series." <a href="https://www.researchgate.net/publication/348592737/figure/fig3/AS:981645804970018@1611054006754/Examples-for-stationary-and-non-stationary-time-series.png" target="_blank">https://www.researchgate.net/publication/348592737/figure/fig3/AS:981645804970018@1611054006754/Examples-for-stationary-and-non-stationary-time-series.png</a>.</li>
 </ul>
+  <h2>ARIMA/SARIMA full code</h2>
+      <iframe width="900" height="600" frameborder="0"
+        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/COVID19DataARIMAandSARIMA.html"></iframe>
+   <iframe width="900" height="600" frameborder="0" 
+        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb">
+  </iframe>
+  <h2>Bayesian STS Code</h2>
+
 </div>
 
 
