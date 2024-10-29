@@ -172,46 +172,77 @@
 <p>To begin the data exploration, I processed the data from the Johns Hopkins dataset. The dataset was already prepared, cleaned, and organized by country, province, state, date, confirmed cases, and more. After loading the dataset into Jupyter Notebook, I examined its structure and content. To explore the dataset further, I applied a rolling statistic. This approach visualizes a moving window along the time series, which is particularly useful with ARIMA as it helps to observe moving averages. These rolling averages smooth out short-term fluctuations, providing a clearer view of the underlying trends in the data.</p>
    <h3>ARIMA and SARIMA Forecasts</h3>
     <img src="images/Screenshot 2024-10-15 064846.png" alt="Rolling_Mean_STD" width="600" height="300">
-    <p><em>Rolling Mean and Rolling Standard Deviation over 7-day periods, showing the trend of confirmed COVID-19 cases in Florida (2020-2023).</em></p>
+    <pre><code> 
+rolling_mean_us = us_data['Confirmed'].rolling(window=30).mean()
+rolling_std_us = us_data['Confirmed'].rolling(window=30).std()
 
-    <p>As we can see, the blue line of confirmed cases, or the cumulative data has small rigidness on the line. When the rolling mean was applied, it smoothed out the curve based on the 7-day rolling window. This averages out the daily changes to the data over a week at a time. Because the changes of the window size is low, the standard deviation line in green will appear low, indicating that the variations over that period are not significant. All this is applicable to our data as the nature of COVID-19’s spread tends to increase in a consistent matter over time, except as we can see in 2022-01, we had a significant spike. Aside from that, the rolling standard deviation proves that there is lower variability. </p>
+plt.figure(figsize=(12, 6))
+plt.plot(us_data['Confirmed'], color='b', label='Original Confirmed Cases', linewidth=1)
+plt.plot(rolling_mean_us, color='r', label='Rolling Mean (30 days)', linewidth=1.5)
+plt.fill_between(us_data.index, rolling_mean_us - rolling_std_us, rolling_mean_us + rolling_std_us, color='gray', alpha=0.3, label='Rolling Std Dev (30 days)')
+
+plt.title('Rolling Mean & Standard Deviation of COVID-19 Confirmed Cases in the US (2020 - 2023)')
+plt.xlabel('Date')
+plt.ylabel('Confirmed Cases')
+plt.legend(loc='best')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+    <p><em>Rolling Mean and Rolling Standard Deviation over 7-day periods, showing the trend of confirmed COVID-19 cases in Florida (2020-2023).</em></p>
+    <p>After creating a line graph displaying the trend of confirmed COVID-19 cases over time, it became clear that the sheer volume of data required narrowing the focus. I chose to concentrate on Florida, my home state. The data exhibited seasonality, with confirmed cases rising as the weeks progressed. I began by processing the Johns Hopkins dataset, which was already organized by country, state, and confirmed cases, among other variables. I ensured all date and time variables were correctly formatted, addressing any missing values along the way. I plotted a general USA COVID-19 graph to analyze the structure, which revealed a positive trend and signs of seasonality.</p>
+    <p>First, to point out the code, the cleaned data set allows me to calculate the means with ease. I used a window of 30 days for both the means and standard deviation. Then, as it can be seen, the blue line of confirmed cases, or the cumulative data has small rigidness on the line. When the rolling mean was applied, it smoothed out the curve based on the 7-day rolling window. This averages out the daily changes to the data over a week at a time. Because the changes of the window size is low, the standard deviation line in green will appear low, indicating that the variations over that period are not significant. All this is applicable to our data as the nature of COVID-19’s spread tends to increase in a consistent matter over time, except as we can see in 2022-01, we had a significant spike. Aside from that, the rolling standard deviation proves that there is lower variability. </p>
     <p>As I am exploring and graphing the data, I made sure that the date and time variables were all formatted correctly and cleaned up any NaN values. Then, I begin the ARIMA process. Visually, the data appears to be stationary. This can be determined by the characteristics that it is trending upwards and has some sort of seasonality since there is a pattern with in the upward trend that appears to be relatively consistent. However, if I want to make sure I will approach by applying the Dickey-Fuller hypothesis testing. </p>
 <ul>
     <li><strong>H0:</strong> The data is non-stationary.</li>
     <li><strong>H1:</strong> The data is stationary.</li>
 </ul>
-  <p> Due to the fact that my p-value was greater than 0.05, we fail to reject the null hypothesis, and therefore perform a first order differencing on the model. Which is then seen to be stationary under this hypothesis. Since this has now confirmed that the data is stationary, a first order differencing is now necessary to continue.<\p>
-  <p> Since the p-value of the Augmented Dickey-Fuller (ADF) test was greater than 0.05, I failed to reject the null hypothesis, indicating that the time series was non-stationary. As a result, I applied a first-order differencing, which successfully transformed the data into a stationary series under this hypothesis. Next, using the Akaike Information Criterion (AIC) function, I identified the optimal ARIMA model parameters (p,d,q). After fitting the ARIMA model with these parameters, I analyzed the residuals to ensure they exhibited white noise behavior, confirming the model's validity. Finally, I used the fitted model to generate a forecast of confirmed COVID-19 cases for the next 30 days in the state of Florida.</p>
-</ol>
-    
-    <p>Developed ARIMA Model:</p>
-    <p>For this specific COVID-19 data and the model that I will end up generating, the following is the mathematical expression of my ARIMA model in general terms:</p>
-    <p> \[Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_5 Y_{t-5} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \dots + \theta_5 \epsilon_{t-5} + \epsilon_t\] </p>
-    <p>Where:</p>
-    <ul>
-    <li>\( Y_t \): The value of the confirmed cases at \( t \) time.</li>
-    <li>\( c \): Constant term (intercept).</li>
-    <li>\( \phi_i \) (\( i = 1, 2, \dots, 5 \)): Coefficients for the Auto-Regressive (AR) terms (from lag 1 to lag 5).</li>
-    <li>\( Y_{t-i} \): The value of the time series at previous time steps (\( t-1, t-2, \dots, t-5 \)).</li>
-    <li>\( \theta_i \) (\( i = 1, 2, \dots, 5 \)): Coefficients for the Moving Average (MA) terms (past errors).</li>
-    <li>\( \epsilon_{t-i} \): Errors at previous time steps (\( t-1, t-2, \dots, t-5 \)).</li>
-    <li>\( \epsilon_t \): Error term at time \( t \).</li>
-    </ul>
-    
-<p>After creating a line graph displaying the trend of confirmed COVID-19 cases over time, it became clear that the sheer volume of data required narrowing the focus. I chose to concentrate on Florida, my home state. The data exhibited seasonality, with confirmed cases rising as the weeks progressed. I began by processing the Johns Hopkins dataset, which was already organized by country, state, and confirmed cases, among other variables. I ensured all date and time variables were correctly formatted, addressing any missing values along the way. I plotted a general USA COVID-19 graph to analyze the structure, which revealed a positive trend and signs of seasonality.</p>
-<p>To determine the stationarity of the dataset, I employed the Augmented Dickey-Fuller (ADF) test, which evaluates the following hypotheses:</p>
+  <pre><code>
+print('Results of Dickey-Fuller Test:')
+dftest = adfuller(us_data['Confirmed'], autolag='AIC')
+dfoutput = pd.Series(dftest[0:4], index=['Test Statistic', 'p-value', '# Lags Used', 'Number of Observations Used'])
+for key, value in dftest[4].items():
+dfoutput['Critical Value (%s)' % key] = value
+print(dfoutput)
+  </code></pre>
+  <p>This code allows us to test the ADF hypothesis. The outcome of this was that my p-value was greater than 0.05, so we fail to reject the null hypothesis, and therefore perform a first order differencing on the model.</p> 
 
-<ul>
-    <li><strong>H₀:</strong> The data is non-stationary.</li>
-    <li><strong>H₁:</strong> The data is stationary.</li>
-</ul>
-<p>Since the p-value was greater than 0.05, I failed to reject the null hypothesis, indicating non-stationarity. I applied first-order differencing to make the data stationary. Using the Akaike Information Criterion (AIC), I identified the optimal ARIMA parameters \((p, d, q)\) for modeling. After fitting the model, I checked the residuals for white noise to validate the model. Finally, I generated a 30-day forecast of confirmed COVID-19 cases for the state of Florida, offering insights into potential future trends.</p>
+<pre><code>
+fl_data = cleaned_data[(cleaned_data['Country_Region'] == 'US') & (cleaned_data['Province_State'] == 'Florida')].copy()
+fl_data['Last_Update'] = pd.to_datetime(fl_data['Last_Update'], errors='coerce')
+fl_data = fl_data.dropna(subset=['Last_Update', 'Confirmed'])
+fl_data['Confirmed'] = pd.to_numeric(fl_data['Confirmed'], errors='coerce')
+fl_data = fl_data.groupby('Last_Update')['Confirmed'].sum().reset_index()
+fl_data = fl_data.sort_values('Last_Update')
+fl_data.set_index('Last_Update', inplace=True)
+fl_data['Differenced_Confirmed'] = fl_data['Confirmed'].diff()
+fl_data.dropna(subset=['Differenced_Confirmed'], inplace=True)
+</code></pre>
     
-  <p>Developed SARIMA Model:</p>
+<p>So, I specifically am attempting to stationarize the Florida COVID data, which is seen with the Country Region and State being Florida. Then, after doing data cleaning to structure the data in preparation of stationarization, I apply the differencing to the data. Which is then seen to be stationary under this hypothesis. Since this has now confirmed that the data is stationary, a first order differencing is now necessary to continue.</p>
+<p>After the data is differenced, I performed the ADF again, and this time the p-value was less than 0.05. Therefore, the process can continue.</p>
+<p><strong>Add image of differenced here</strong></p>
+<p>Now, from here it is possible to choose an ideal model from the PACF/ACF models, but I used the ARIMA Order Select AIC function that is found in the statsmodels.tsa.stattools package. The reason I decided to do this instead of looking at the PACF/ACF was because of the variability within those graphs, I believe that using this tools lets me be more efficient and also more accurate since if I chose I could have human error. </p>
+<pre><code>
+from statsmodels.tsa.stattools import arma_order_select_ic
+order_selection = arma_order_select_ic(fl_data['Differenced_Confirmed'].dropna(), ic='aic', max_ar=5, max_ma=5)
+print(order_selection.aic_min_order)
+</code></pre>
+<p> From this code, I achieved the following ARIMA order = (5,0,5). Then, I used this to fit my ARIMA model. </p>
+<pre><code>
+model = ARIMA(fl_data['Differenced_Confirmed'].dropna(), order=(5, 0, 5))
+fit_arima = model.fit()
+print(fit_arima.summary())
+</code></pre>
+<p><strong> ADD Image here</strong></p>
+    
+<p>Developed SARIMA Model:</p>
     <p>For this COVID-19 dataset, the SARIMA model extends ARIMA by incorporating seasonality. The mathematical expression of my SARIMA model is:</p>
     <p>After performing the ARIMA model, it can be seen that the data would have been better fitted with a SARIMA model. SARIMA, an extention of ARIMA, also works with linear regression however takes into consideration of the complexity that seasonality can hold within our data. As it can be seen in the EDA, the data has a cylcial pattern. This is common within different epidemiolgy such as flu season, where there are times the data spikes and decreases as medical advances (in our case COVID-19 vaccines or leaving the winter season) can cause diagnosis of COVID-19 to increase or decrease.</p>
     <p>Within the code we explored, the seasonal part of the SARIMA model would look like:</p>
-    
+   
     <p>\[ Y_t = c + \phi_1 Y_{t-1} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \Phi_1 Y_{t-s} + \Theta_1 \epsilon_{t-s} + \epsilon_t \] </p>
     <p>Where:</p>
 <ul>
