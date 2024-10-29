@@ -75,6 +75,8 @@
   <div id="Intro" class="tabcontent">
 <img src="images/Screenshot%202024-10-14%20212930.png" alt="Time Series Forecast" width="600" height="300">
 <p><em>Source: <a href="https://towardsdatascience.com/an-introduction-to-time-series-analysis-with-arima-a8b9c9a961fb" target="_blank">An Introduction to Time Series Analysis with ARIMA, Towards Data Science</a></em></p>
+    <h2>Abstract</h2>
+    <p>This study explores time series forecasting techniques using ARIMA, SARIMA, and Bayesian models on two distinct datasets: the COVID-19 dataset from the Johns Hopkins CSSEGISandData repository and the CO₂ emissions data from Mauna Loa, Hawaii, provided by NOAA. The primary goal is to clean the datasets and implement forecasting models to assess their strengths and limitations. For large datasets, such as COVID-19, both ARIMA and SARIMA models demonstrated rapid processing capabilities but exhibited high variability. Both models produced nearly identical forecasts, which suggests potential overfitting or redundancy. Further investigation is required to fully explore the performance of the Bayesian model on this dataset. In contrast, the smaller Mauna Loa CO₂ dataset, which exhibits smoother seasonal patterns, allowed for more accurate forecasting. Among the tested models, the Bayesian model provided the most precise predictions, with a Root Mean Square Error (RMSE) of 0.765 and a Mean Absolute Percentage Error (MAPE) of 0.16%. The ARIMA and SARIMA models performed adequately, but their RMSE values were higher: 12.55 and 13.38, respectively. This analysis highlights the Bayesian model in handling stable and seasonally predictable datasets, while ARIMA-based models may struggle when applied to complex and volatile data, such as the COVID-19 dataset. These results demonstrate the importance of model selection based on the nature and structure of the dataset for effective forecasting.</p>
     <h2>Introduction</h2>
     <p>Anything that is observed sequentially over time is a time series. In the data, I will look at regular intervals of time. Time series forecasting is a statistical method used to predict future values based on past results. The simplest models focus solely on the variable being forecast, ignoring external factors like marketing efforts or economic shifts, and instead extrapolating existing trends and seasonality. Specifically in this capstone, I will be exploring univariate models ARIMA/SARIMA and the Bayesian STS.</p>
     <p>The use of time series analysis gained recognition since 1970 when the Box-Jenkins method popularized ARIMA models to find the best fit of different time series models based on past data. However, the concept of analyzing sequential data over time is not new. As the world increasingly embraces data-driven solutions to forecast future industry outcomes, time series analysis has become vital in numerous fields. </p>
@@ -323,6 +325,13 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <iframe src="tables/co2_results_table.html" width="100%" height="200" frameborder="0"></iframe>
   <img src="images/Screenshot 2024-10-27 052017.png " alt="training data, forecast, actual data graph">
   <p></p>
+
+<h3>Discussion</h3>
+<p>The Bayesian model emerged as the stronger performer across these datasets, though it comes with some challenges. One significant drawback is that it is computationally expensive and takes a long time to load and process data, which can be frustrating during model development.</p>
+<p>Both datasets used in this study were non-stationary, and the way this was handled differs between ARIMA and Bayesian Structural Time Series (BSTS) models. I suspect that this difference may have contributed to ARIMA's suboptimal performance. It raises the question of how ARIMA would have performed had the data been transformed differently or more thoroughly stationarized before modeling.</p>
+<p>Looking ahead, it would be interesting to explore how the results might change by incorporating more informed priors into the Bayesian model. This could improve the model's predictive power and provide more meaningful insights.</p>
+<p>While ARIMA is simpler to understand and easier to implement, careful model selection remains crucial. With large datasets, relying on automatic parameter selection (like Statsmodels' choice of (p, d, q)) may not always yield the most efficient or effective results, which highlights the importance of thoughtful tuning and testing in the modeling process.</p>
+
 </div>
 
 <!-- Tab content for Presentation -->
@@ -348,13 +357,14 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
     <li><strong>[11] ResearchGate, 2021.</strong> "Examples for Stationary and Non-Stationary Time Series." <a href="https://www.researchgate.net/publication/348592737/figure/fig3/AS:981645804970018@1611054006754/Examples-for-stationary-and-non-stationary-time-series.png" target="_blank">https://www.researchgate.net/publication/348592737/figure/fig3/AS:981645804970018@1611054006754/Examples-for-stationary-and-non-stationary-time-series.png</a>.</li>
 </ul>
   <h2>ARIMA/SARIMA full code</h2>
-      <iframe width="900" height="600" frameborder="0"
+    <iframe width="900" height="600" frameborder="0"
         src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/COVID19DataARIMAandSARIMA.html"></iframe>
    <iframe width="900" height="600" frameborder="0" 
-        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb">
-  </iframe>
+        src="https://nbviewer.org/github/GianyceG/gianyceg.github.io/blob/main/CO2_ARIMA_and_SARIMA.ipynb"></iframe>
+  
   <h2>Bayesian STS Code</h2>
-
+     <iframe width="900" height="600" frameborder="0" 
+        src="https://nbviewer.org/github./GianyceG/gianyceg.github.io/blob/main/CO2_Bayesian_Code.ipynb"></iframe>
 </div>
 
 
