@@ -180,7 +180,6 @@ plt.figure(figsize=(12, 6))
 plt.plot(us_data['Confirmed'], color='b', label='Original Confirmed Cases', linewidth=1)
 plt.plot(rolling_mean_us, color='r', label='Rolling Mean (30 days)', linewidth=1.5)
 plt.fill_between(us_data.index, rolling_mean_us - rolling_std_us, rolling_mean_us + rolling_std_us, color='gray', alpha=0.3, label='Rolling Std Dev (30 days)')
-
 plt.title('Rolling Mean & Standard Deviation of COVID-19 Confirmed Cases in the US (2020 - 2023)')
 plt.xlabel('Date')
 plt.ylabel('Confirmed Cases')
@@ -269,6 +268,7 @@ forecast = fit_sarima.forecast(steps=forecast_steps)
     </code></pre>
     <p><strong>add image here</strong></p>
     <p>In this graph, the seasonality aspect can be seen in the graph itself by the data appearing to be more impacted in the forecast. Then, the results tab will go over how the RSME compares with each other.</p>
+
 </body>
 </html>
 
