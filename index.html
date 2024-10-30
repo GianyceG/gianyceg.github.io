@@ -223,7 +223,7 @@ fl_data.dropna(subset=['Differenced_Confirmed'], inplace=True)
     
 <p>So, I specifically am attempting to stationarize the Florida COVID data, which is seen with the Country Region and State being Florida. Then, after doing data cleaning to structure the data in preparation of stationarization, I apply the differencing to the data. Which is then seen to be stationary under this hypothesis. Since this has now confirmed that the data is stationary, a first order differencing is now necessary to continue.</p>
 <p>After the data is differenced, I performed the ADF again, and this time the p-value was less than 0.05. Therefore, the process can continue.</p>
-<p><strong>Add image of differenced here</strong></p>
+<img src="images/Screenshot 2024-10-30 053139.png " alt="Differenced COVID-19 Data" width="600" height="300">
 <p>Now, from here it is possible to choose an ideal model from the PACF/ACF models, but I used the ARIMA Order Select AIC function that is found in the statsmodels.tsa.stattools package. The reason I decided to do this instead of looking at the PACF/ACF was because of the variability within those graphs, I believe that using this tools lets me be more efficient and also more accurate since if I chose I could have human error. </p>
 <pre><code>
 from statsmodels.tsa.stattools import arma_order_select_ic
@@ -236,7 +236,7 @@ model = ARIMA(fl_data['Differenced_Confirmed'].dropna(), order=(5, 0, 5))
 fit_arima = model.fit()
 print(fit_arima.summary())
 </code></pre>
-<p><strong> ADD Image here</strong></p>
+<img src="images/Screenshot 2024-10-30 053234.png " alt="COVID-19 ARIMA Forecast" width="600" height="300">
     
 <p>Developed SARIMA Model:</p>
     <p>For this COVID-19 dataset, the SARIMA model extends ARIMA by incorporating seasonality. The mathematical expression of my SARIMA model is:</p>
