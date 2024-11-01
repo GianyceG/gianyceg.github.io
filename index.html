@@ -317,7 +317,8 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <li>\( \epsilon_{t-i} \): Errors at previous time steps (\( t-1, t-2 \)).</li>
   <li>\( \epsilon_t \): Error term at time \( t \).</li>
 </ul>
-<p>The AR part includes three lags,\phi_1, \phi_2, \phi_3. And the MA part containes two past errors, \theta_1, \theta_2. Then, the differencing allowed there to be an impact on the \(d\) term.  </p>
+<p>The AR part includes three lags, \( \phi_1 \), \( \phi_2 \), \( \phi_3 \). And the MA part contains two past errors, \( \theta_1 \), \( \theta_2 \). Then, the differencing allowed there to be an impact on the \( d \) term.</p>
+
 
 <p>Now, this ARIMA model, perhaps due to this dataset being significantly smaller, has not captured the seasonality as appropriately. This will be continued to be explored in the results tab. However, this is why it is important to consider the SARIMA in this case as well.</p>
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
