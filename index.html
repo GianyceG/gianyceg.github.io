@@ -293,7 +293,7 @@ forecast = fit_sarima.forecast(steps=forecast_steps)
 <p>\[
 Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
 \]</p>
-
+<p><strong> left off here</strong></p>
 <p>Where:</p>
 <ul>
   <li>\( Y_t \): The observed value of the time series at time \( t \) (the confirmed COVID-19 cases in Florida).</li>
@@ -303,7 +303,19 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <li>\( \beta \): A vector of regression coefficients corresponding to the regressors.</li>
   <li>\( \epsilon_t \): Error term at time \( t \), accounting for random noise.</li>
 </ul>
-<p><strong>edit me</strong></p>
+<p>Similarly to before, the same John Hopkins data is processed into JupyterNotebook. The biggest difference between the BSTS and ARIMA is the use of a prior distribution and also it does take into consideration trend and seasonality. So, taking those into consideration, I performed the following code: </p>
+<pre><code>
+trend_all = np.linspace(0., 1., len(florida_data))[..., None]
+trend_all = trend_all.astype(np.float32)
+num_forecast_steps = 7
+trend = trend_all[:-num_forecast_steps, :]
+</code></pre>
+
+<pre><code>
+seasonality_all = pd.get_dummies(florida_data.index.dayofweek).values.astype(np.float32)
+seasonality = seasonality_all[:-num_forecast_steps, :]
+
+</code></pre>
     
  <h2>Methods for CO₂ Emission Forecasting</h2>
 <p>In this part of my methodology, I will explain the following: the data cleaning process for the NOAA dataset, the development and application of the ARIMA/SARIMA model on this dataset, and finally, the BSTS model. These models will be compared in a later section of the capstone to evaluate their performance on this dataset.</p>
