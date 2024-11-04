@@ -336,7 +336,7 @@ seasonality_all = pd.get_dummies(florida_data.index.dayofweek).values.astype(np.
 seasonality = seasonality_all[:-num_forecast_steps, :]
 </code></pre>
 <p>This part of the code focuses on the seasonal component of the Bayesian model. Since we are still working with weekly data, it gives a prior that is attempting to capture a weekly seasonality as its expectation. The creation of the seasonality matrix provides a visual way that shows how the data is incorporated. </p>
- <img src= images/Screenshot 2024-11-03 163116.png " alt="– COVID Seasonality, Trend" width="600" height="300">
+ <img src= "images/Screenshot 2024-11-03 163116.png " alt="– COVID Seasonality, Trend" width="600" height="300">
 <p> Here, the visualized seasonality demonstrates the priors implemented in the model: the assumed weekly pattern across days of the week and the increasing trend over the years. </p>
 <p> After applying the priors of seasonality and trend to the data, I shift over to the overall movement of the data and how I want to fit the Bayesian model. Since I have an uninformed dataset, I am choosing to apply the Gaussian prior for the intercept, trend coefficient and seasonality coefficient. </p>
 <pre><code>
