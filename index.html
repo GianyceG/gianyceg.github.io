@@ -396,7 +396,7 @@ co2_data['month'] = ((co2_data['decimal_date'] - co2_data['year']) * 12 + 1).ast
 <img src="images/Screenshot 2024-11-01 005425.png" alt="Differenced Monthly Average CO2 Levels +2nd ADF Test" width="600" height="300">
 <p>In the provided code and output, the dataset is differenced and any missing values are dropped. Then, after differencing, the adfuller, or the ADF test is performed. The results are then subsequently printed. </p>
 <p>After applying the differencing technique to the data, the Augmented Dickey-Fuller (ADF) test was re-conducted. The resulting p-value of 0.00005 provides strong evidence to reject the null hypothesis (\(H_0\)), confirming that the series is now stationary (\(p < 0.05\)).Next, I examined the Partial Autocorrelation Function (PACF) and Autocorrelation Function (ACF) plots derived from the differenced data. Based on these plots, two potential ARIMA models were identified: (3,1,2) and (3,1,1). I used Python's Statsmodels library to fit these models and selected the model with the lowest Akaike Information Criterion (AIC) value, which turned out to be the (3,1,2) model. This model was then used to forecast CO₂ emissions up to 2025. While the forecast captured the general upward trend, it did not represent the seasonality in the data.</p>
-<img src="images/Screenshot 2024-10-29 052810.png" alt="ARIMA Forecast CO2">
+<img src="images/Screenshot 2024-10-29 052810.png" alt="ARIMA Forecast CO2"  width="600" height="300">
 
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
 <p>Given the specified parameters from the AIC model, (3,1,2), it is now possible to mathematically represent our ARIMA model with the following:</p>
@@ -413,8 +413,9 @@ co2_data['month'] = ((co2_data['decimal_date'] - co2_data['year']) * 12 + 1).ast
 </ul>
 <p>The AR part includes three lags, \( \phi_1 \), \( \phi_2 \), \( \phi_3 \). And the MA part contains two past errors, \( \theta_1 \), \( \theta_2 \). Then, the differencing allowed there to be an impact on the \( d \) term.</p>
 
-
 <p>Now, this ARIMA model, perhaps due to this dataset being significantly smaller, has not captured the seasonality as appropriately. This will be continued to be explored in the results tab. However, this is why it is important to consider the SARIMA in this case as well.</p>
+<p><strong>Insert MAPE ARIMA here </strong></p>
+
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
 <pre><code>
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -424,7 +425,9 @@ model = SARIMAX(co2_data['CO2'], order=sarimax_order, seasonal_order=seasonal_or
 fit = model.fit(disp=False)
 </code></pre>
 
-<img src="images/Screenshot 2024-10-29 052822.png" alt="SARIMA Forecast CO2">
+<img src="images/Screenshot 2024-10-29 052822.png" alt="SARIMA Forecast CO2"  width="600" height="300">
+
+<p><strong> Insert image of MAPE for SARIMA here</strong></p>
 
 <h3>Bayesian STS Methods:</h3>
 <p>After the general data cleaning as referenced above, I originally attempted to use the PyMC3 library, but it was outdated. Instead, I used PyMC and TensorFlow Probability (TFP), both of which support Bayesian modeling methods. TFP offers a lower-level API but requires additional shape handling, as seen in the code through the use of .numpy() and .squeeze() when defining the time series model.</p>
@@ -435,9 +438,9 @@ fit = model.fit(disp=False)
     co2_data['date'] = pd.to_datetime(co2_data[['year', 'month']].assign(day=1))
     </code></pre>
 <p>This code emphasizes the data cleaning process. After importing, the columns are renamed to <code>year</code>, <code>month</code>, and <code>date</code> for consistency. Then, the data is processed into a datetime format, which enables easy plotting of atmospheric CO2 levels over the years.</p>
-    <img src="images/Screenshot 2024-10-27 051935.png" alt="Graph of atmospheric CO2 levels over the years">
+    <img src="images/Screenshot 2024-10-27 051935.png" alt="Graph of atmospheric CO2 levels over the years"  width="600" height="300">
 <p>The graph visualizes the seasonality pattern alongside the trend across the time series data. The seasonality is represented by the periodic shifts seen diagonally, indicating repeating monthly cycles (e.g., January through December). This diagonal pattern emerges from transforming the time data into a cyclic sequence, such as [1, 2, 3, ..., 12, 1, 2, ...]. In the design matrix, these cycles become evident, helping capture recurring patterns year-over-year.</p> <p>The trend component, on the other hand, models the general direction of the data over time, reflecting the increase in CO2 levels. By combining the seasonal pattern with the trend, this visualization lays the foundation for the time series regression model. Specifically, in the code, the dummy variables capture these seasonal effects, and the relationship is modeled using a linear regression framework with a likelihood of \(Y \sim N(X\beta, \sigma^2)\). As part of the Bayesian model, Gaussian priors are incorporated, allowing for more robust inference as the model develops.</p>
-    <img src="images/Screenshot 2024-10-27 051948.png " alt="Graph of Seasonality and Trend of the Data">
+    <img src="images/Screenshot 2024-10-27 051948.png " alt="Graph of Seasonality and Trend of the Data"  width="600" height="300">
 <p>After the visualizations, I used the prior predictive samples from the simple regression model as graphed in the beginning. Aith this, we now define the following function in python: </p>
     <pre><code>intercept = yield root(tfd.Normal(0., 100., name="intercept"))</code></pre>
   <p>This represents the intercept baseline of the time series, where we are modeling with the Gaussian prior, centered at 0 with a large standard deviation (in this case, 100) to allow flexibility within the timeseries. Because I do not have previous knowledge on the timeseries, I am attempting to make a model that is flexible that will cover the data. </p>
@@ -449,7 +452,7 @@ fit = model.fit(disp=False)
   <p>This code is capturing the seasonality, trend, applying shape and structure to the model definiton. The <code>sample_shape</code> is applying the 12 month seasonality, and the Half-Cauchy distribution is accounting for the noise, or randomness of the data. This also is ensuring that the variance remains positive.</p>
   <p>After this, the observed likelihood is defined with the normal distribution with an ensured independence in the observations. This is implimented with <code>tfd.independent</code>.</p>
   <p>Next, sampling the priors can be seen with the graph below. </p>
-    <img src="images/Screenshot 2024-10-27 052001.png " alt="Graph of Priors">
+    <img src="images/Screenshot 2024-10-27 052001.png " alt="Graph of Priors"  width="600" height="300">
   <p>Prior predictive samples from the simple regression model for the monthly CO2. Each line is one simulated time series, and they were uninformative priors, as they did not stem from the data set originally, but were applied general priors to follow with Gaussian distribution and are pre-defined parameters.</p>
   <p>Next, I developed code for the actual forecast. Which can be highlighted with the following code: </p>
 <pre><code> 
@@ -493,7 +496,7 @@ forecast_mean = forecast_dist.mean().numpy().squeeze()
 forecast_index = pd.date_range(dates_train[-1] + pd.DateOffset(months=1), periods=9, freq="M")
  </code></pre>
   <p>Finally, I am able to now forecast the next 9 months using the posterior samples that came from the VI, and thden generates the mean forecast and dates for the future months. After this, the following data was plotted and the outcome shows that the model predictions match the actual date of the data. </p>
-  <img src="images/Screenshot 2024-10-27 052017.png" alt="Graph of Priors">
+  <img src="images/Screenshot 2024-10-27 052017.png" alt="Graph of Priors"  width="600" height="300">
   </div>  
 
 <!-- Tab content for Results -->
