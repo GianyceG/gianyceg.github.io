@@ -175,18 +175,7 @@
     <pre><code> 
 rolling_mean_us = us_data['Confirmed'].rolling(window=30).mean()
 rolling_std_us = us_data['Confirmed'].rolling(window=30).std()
-plt.figure(figsize=(12, 6))
-plt.plot(us_data['Confirmed'], color='b', label='Original Confirmed Cases', linewidth=1)
-plt.plot(rolling_mean_us, color='r', label='Rolling Mean (30 days)', linewidth=1.5)
-plt.fill_between(us_data.index, rolling_mean_us - rolling_std_us, rolling_mean_us + rolling_std_us, color='gray', alpha=0.3, label='Rolling Std Dev (30 days)')
-plt.title('Rolling Mean & Standard Deviation of COVID-19 Confirmed Cases in the US (2020 - 2023)')
-plt.xlabel('Date')
-plt.ylabel('Confirmed Cases')
-plt.legend(loc='best')
-plt.grid(True)
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+
 </code></pre>
 <p><em>Rolling Mean and Rolling Standard Deviation over 7-day periods, showing the trend of confirmed COVID-19 cases in Florida (2020-2023).</em></p>
     <p>After creating a line graph displaying the trend of confirmed COVID-19 cases over time, it became clear that the volume of data required narrowing down the location or focus. I chose to concentrate on Florida, my home state. Then, I noticed that the data exhibited seasonality, with confirmed cases rising as the weeks progressed. I began by processing the Johns Hopkins dataset, which was already organized by country, state, and confirmed cases, among other variables. I ensured all date and time variables were correctly formatted, addressing any missing values along the way. I plotted a general USA COVID-19 graph to analyze the structure, which revealed a positive trend and signs of seasonality.</p>
@@ -201,8 +190,6 @@ print('Results of Dickey-Fuller Test:')
 dftest = adfuller(us_data['Confirmed'], autolag='AIC')
 dfoutput = pd.Series(dftest[0:4], index=['Test Statistic', 'p-value', '# Lags Used', 'Number of Observations Used'])
 for key, value in dftest[4].items():
-dfoutput['Critical Value (%s)' % key] = value
-print(dfoutput)
   </code></pre>
   <p>This code allows us to test the ADF hypothesis. The outcome of this was that my p-value was greater than 0.05, so we fail to reject the null hypothesis, and therefore perform a first order differencing on the model.</p> 
 <pre><code>
