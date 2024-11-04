@@ -168,9 +168,9 @@
 <h3>Johns Hopkins COVID-19 Exploration </h3>
 <p>This part of the project uses time series forecasting on the COVID-19 dataset from the Johns Hopkins CSSEGISandData, with an emphasis on modeling the data using ARIMA/SARIMA and Bayesian Structural Time Series (BSTS). Both are univariate (single-variable) time series methods without trend or seasonal components, while other time series models, such as SARIMA, can capture multivariate series with trends and seasonal patterns. Within this capstone, I will demonstrate how the predictions appear when forecasted using ARIMA, SARIMA, and BSTS. Then, I will compare the results, determine which model is best suited for the COVID-19 dataset, and revisit the limitations of the models based on the outcomes of their applications.</p>
   <p> First, the data will be loaded into JupyterNotebook and processed with Python. Then, the data is already cleaned through the github repository CSSEGISandData.  <p>
-    <p>Using Python, the key libraries utilized for processing my ARIMA model were Pandas, Matplotlib, and Statsmodels. I used Pandas extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. Matplotlib was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. Statsmodelswas used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
-<p>To begin the data exploration, I processed the data from the Johns Hopkins dataset. The dataset was already prepared, cleaned, and organized by country, province, state, date, confirmed cases, and more. After loading the dataset into Jupyter Notebook, I examined its structure and content. To explore the dataset further, I applied a rolling statistic. This approach visualizes a moving window along the time series, which is particularly useful with ARIMA as it helps to observe moving averages. These rolling averages smooth out short-term fluctuations, providing a clearer view of the underlying trends in the data.</p>
-   <h3>ARIMA and SARIMA Forecasts</h3>
+    <p>Using Python, the key libraries utilized for processing my ARIMA model were Pandas, Matplotlib, and Statsmodels. I used Pandas extensively for data manipulation, including loading the dataset, converting date columns to datetime format, applying differencing to achieve stationarity, and other data preparation tasks. Matplotlib was instrumental in visualizing the time series, including plotting the original and differenced data, as well as visualizing the autocorrelation and forecast results. Statsmodels was used to fit the ARIMA model and provided essential tools for analyzing time series properties, such as plotting the partial autocorrelation function (PACF) and autocorrelation function (ACF), as well as fitting the model itself to make predictions.</p>
+<p>To begin the data exploration, I processed the data from the Johns Hopkins dataset. The dataset was already prepared, cleaned, and organized by country, province, state, date, confirmed cases, and more. After loading the dataset into JupyterNotebook, I examined its structure and content. To explore the dataset further, I applied a rolling statistic. This approach visualizes a moving window along the time series, which is particularly useful with ARIMA as it helps to observe moving averages. These rolling averages smooth out short-term fluctuations, providing a clearer view of the underlying trends in the data.</p>
+    <h3>ARIMA and SARIMA Forecasts</h3>
     <img src="images/Screenshot 2024-10-15 064846.png" alt="Rolling_Mean_STD" width="600" height="300">
     <pre><code> 
 rolling_mean_us = us_data['Confirmed'].rolling(window=30).mean()
@@ -189,9 +189,9 @@ plt.tight_layout()
 plt.show()
 </code></pre>
 <p><em>Rolling Mean and Rolling Standard Deviation over 7-day periods, showing the trend of confirmed COVID-19 cases in Florida (2020-2023).</em></p>
-    <p>After creating a line graph displaying the trend of confirmed COVID-19 cases over time, it became clear that the sheer volume of data required narrowing the focus. I chose to concentrate on Florida, my home state. The data exhibited seasonality, with confirmed cases rising as the weeks progressed. I began by processing the Johns Hopkins dataset, which was already organized by country, state, and confirmed cases, among other variables. I ensured all date and time variables were correctly formatted, addressing any missing values along the way. I plotted a general USA COVID-19 graph to analyze the structure, which revealed a positive trend and signs of seasonality.</p>
+    <p>After creating a line graph displaying the trend of confirmed COVID-19 cases over time, it became clear that the volume of data required narrowing down the location or focus. I chose to concentrate on Florida, my home state. Then, I noticed that the data exhibited seasonality, with confirmed cases rising as the weeks progressed. I began by processing the Johns Hopkins dataset, which was already organized by country, state, and confirmed cases, among other variables. I ensured all date and time variables were correctly formatted, addressing any missing values along the way. I plotted a general USA COVID-19 graph to analyze the structure, which revealed a positive trend and signs of seasonality.</p>
     <p>First, to point out the code, the cleaned data set allows me to calculate the means with ease. I used a window of 30 days for both the means and standard deviation. Then, as it can be seen, the blue line of confirmed cases, or the cumulative data has small rigidness on the line. When the rolling mean was applied, it smoothed out the curve based on the 7-day rolling window. This averages out the daily changes to the data over a week at a time. Because the changes of the window size is low, the standard deviation line in green will appear low, indicating that the variations over that period are not significant. All this is applicable to our data as the nature of COVID-19’s spread tends to increase in a consistent matter over time, except as we can see in 2022-01, we had a significant spike. Aside from that, the rolling standard deviation proves that there is lower variability. </p>
-    <p>As I am exploring and graphing the data, I made sure that the date and time variables were all formatted correctly and cleaned up any NaN values. Then, I begin the ARIMA process. Visually, the data appears to be stationary. This can be determined by the characteristics that it is trending upwards and has some sort of seasonality since there is a pattern with in the upward trend that appears to be relatively consistent. However, if I want to make sure I will approach by applying the Dickey-Fuller hypothesis testing. </p>
+    <p>As I am exploring and graphing the data, I made sure that the date and time variables were all formatted correctly and cleaned up any empty values. Then, I begin the ARIMA process. Visually, the data appears to be stationary. This can be determined by the characteristics that it is trending upwards and has some sort of seasonality since there is a pattern within the upward trend that appears to be relatively consistent. However, if I want to make sure I will approach by applying the Dickey-Fuller hypothesis testing. </p>
 <ul>
     <li><strong>H0:</strong> The data is non-stationary.</li>
     <li><strong>H1:</strong> The data is stationary.</li>
@@ -205,7 +205,6 @@ dfoutput['Critical Value (%s)' % key] = value
 print(dfoutput)
   </code></pre>
   <p>This code allows us to test the ADF hypothesis. The outcome of this was that my p-value was greater than 0.05, so we fail to reject the null hypothesis, and therefore perform a first order differencing on the model.</p> 
-
 <pre><code>
 fl_data = cleaned_data[(cleaned_data['Country_Region'] == 'US') & (cleaned_data['Province_State'] == 'Florida')].copy()
 fl_data['Last_Update'] = pd.to_datetime(fl_data['Last_Update'], errors='coerce')
@@ -217,11 +216,11 @@ fl_data.set_index('Last_Update', inplace=True)
 fl_data['Differenced_Confirmed'] = fl_data['Confirmed'].diff()
 fl_data.dropna(subset=['Differenced_Confirmed'], inplace=True)
 </code></pre>
-    
-<p>So, I specifically am attempting to stationarize the Florida COVID data, which is seen with the Country Region and State being Florida. Then, after doing data cleaning to structure the data in preparation of stationarization, I apply the differencing to the data. Which is then seen to be stationary under this hypothesis. Since this has now confirmed that the data is stationary, a first order differencing is now necessary to continue.</p>
+<p>So, I specifically am attempting to apply stationarity to the Florida COVID data, which is seen with the Country Region and State being Florida. Then, after doing data cleaning to structure the data in preparation of stationarization, I apply the differencing to the data. Which is then seen to be stationary under this hypothesis. Since this has now confirmed that the data is stationary, a first order differencing is now necessary to continue.</p>
 <p>After the data is differenced, I performed the ADF again, and this time the p-value was less than 0.05. Therefore, the process can continue.</p>
 <img src="images/Screenshot 2024-10-30 053139.png " alt="Differenced COVID-19 Data" width="600" height="300">
-<p>Now, from here it is possible to choose an ideal model from the PACF/ACF models, but I used the ARIMA Order Select AIC function that is found in the statsmodels.tsa.stattools package. The reason I decided to do this instead of looking at the PACF/ACF was because of the variability within those graphs, I believe that using this tools lets me be more efficient and also more accurate since if I chose I could have human error. </p>
+<p>Now, from here it is possible to choose an ideal model from the PACF/ACF models, but I used the ARIMA Order Select AIC function that is found in the statsmodels.tsa.stattools package. The reason I decided to do this instead of looking at the PACF/ACF was because of the variability within those graphs, I believe that using this tool lets me be more efficient and also more accurate since if I chose, I could have human error. </p>
+
 <pre><code>
 from statsmodels.tsa.stattools import arma_order_select_ic
 order_selection = arma_order_select_ic(fl_data['Differenced_Confirmed'].dropna(), ic='aic', max_ar=5, max_ma=5)
@@ -240,6 +239,7 @@ train_end_date = '2023-01-01'
 test_start_date = '2023-01-02'
 test_end_date = '2023-03-09'
 </code></pre>
+
 <p>In this code, I implimented the testing, training, and how I am manipulating the current code to the MAPE necessity These dates are used to split the data for training model and defining that forecasting period.</p>
 <pre><code>
 training_data = fl_data.loc[:train_end_date, 'Differenced_Confirmed'].dropna()
@@ -251,14 +251,24 @@ forecast_original_scale = forecast_differenced.cumsum() + last_observed
 forecast_dates = pd.date_range(start=test_start_date, periods=forecast_steps)
 fit_arima = model.fit()
 </code></pre>
-<p>Here, I am preparing the current differenced dataset, and making sure that it will work by dropping any missing values, so only valid points are included in the training set. Then, I run it through the ARIMA model and forecast. </p>
+<p>In this code, I implemented the testing, training, and how I am manipulating the current code to the MAPE necessity These dates are used to split the data for training model and defining that forecasting period.</p>
+<pre><code>
+training_data = fl_data.loc[:train_end_date, 'Differenced_Confirmed'].dropna()
+model = ARIMA(training_data, order=(5, 0, 5))
+forecast_steps = len(pd.date_range(start=test_start_date, end=test_end_date, freq="D"))
+forecast_differenced = fit_arima.forecast(steps=forecast_steps)
+last_observed = fl_data.loc[train_end_date, 'Confirmed']
+forecast_original_scale = forecast_differenced.cumsum() + last_observed
+forecast_dates = pd.date_range(start=test_start_date, periods=forecast_steps)
+fit_arima = model.fit()
+</code></pre>
+<p> Here, I am preparing the current differenced dataset and making sure that it will work by dropping any missing values, so only valid points are included in the training set. Then, I run it through the ARIMA model and forecast. </p>
     <img src="images/Screenshot 2024-11-03 170753.png " alt="ARIMA Forecast Hold-Out MAPE">
-<p>After performing the Hold-Out MAPE, the result is 0.45%, which is a very low error accuracy. Then, for RMSE the result was 44609.035. </p>
+<p>After performing the Hold-Out MAPE, the result is 0.45%, which is a very low error accuracy. Then, for RMSE the result was 44,609.035. </p>
 <p>Developed SARIMA Model:</p>
     <p>For this COVID-19 dataset, the SARIMA model extends ARIMA by incorporating seasonality. The mathematical expression of my SARIMA model is:</p>
-    <p>After performing the ARIMA model, it can be seen that the data would have been better fitted with a SARIMA model. SARIMA, an extention of ARIMA, also works with linear regression however takes into consideration of the complexity that seasonality can hold within our data. As it can be seen in the EDA, the data has a cylcial pattern. This is common within different epidemiolgy such as flu season, where there are times the data spikes and decreases as medical advances (in our case COVID-19 vaccines or leaving the winter season) can cause diagnosis of COVID-19 to increase or decrease.</p>
+    <p>After performing the ARIMA model, it can be seen that the data would have been better fitted with a SARIMA model. SARIMA, an extension of ARIMA, also works with linear regression however takes into consideration of the complexity that seasonality can hold within our data. As it can be seen in the EDA, the data has a cyclical pattern. This is common within different epidemiology such as flu season, where there are times the data spikes and decreases as medical advances (in our case COVID-19 vaccines or leaving the winter season) can cause diagnosis of COVID-19 to increase or decrease.</p>
     <p>Within the code we explored, the seasonal part of the SARIMA model would look like:</p>
-   
     <p>\[ Y_t = c + \phi_1 Y_{t-1} + \dots + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \Phi_1 Y_{t-s} + \Theta_1 \epsilon_{t-s} + \epsilon_t \] </p>
     <p>Where:</p>
 <ul>
@@ -271,20 +281,30 @@ fit_arima = model.fit()
     <li>\( s \): Seasonal period (e.g., weekly seasonality with \( s = 7 \)).</li>
     <li>\( \epsilon_t \): Error term at time \( t \).</li>
 </ul>
-    <p>Now, the main difference between the ARIMA and the SARIMA is the addition of the \( s \) term. When I was exploring the data, it was seen that the data had an upward trend throughout the whole set, but also the data temporally increased every 7 days. Therefore, I chose to have a weekly seasonality within the dataset. The comparison between these two models can be seen in the results tab. </p>
+
+<p>Now, the main difference between the ARIMA and the SARIMA is the addition of the \( s \) term. When I was exploring the data, it was seen that the data had an upward trend throughout the whole set, but also the data temporally increased every 7 days. Therefore, I chose to have a weekly seasonality within the dataset. The comparison between these two models can be seen in the results tab. </p>
     <p>The developed SARIMA model's code still stems from ARIMA, but the difference is the addition of the seasonality.</p>
     <pre><code>
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 sarima_model = SARIMAX(fl_data['Differenced_Confirmed'].dropna(), 
-                       order=(5, 0, 5), 
-                       seasonal_order=(1, 1, 1, 7))
-
+order=(5, 0, 5), 
+seasonal_order=(1, 1, 1, 7))
 fit_sarima = sarima_model.fit()
 forecast_steps = 60
 forecast = fit_sarima.forecast(steps=forecast_steps)
-    </code></pre>
+ </code></pre>
     <img src="images/Screenshot 2024-10-30 054733.png " alt="COVID-19 SARIMA Forecast" width="600" height="300">
-    <p>In this graph, the seasonality aspect can be seen in the graph itself by the data appearing to be more impacted in the forecast. Then, the results tab will go over how the RSME compares with each other.</p>
+    <p>Similarly to before, I also did a hold-out MAPE analysis to the SARIMA code to get a critical analysis on the model’s strength on this dataset. I also used the same start and end dates as before for the training and the test data. The biggest difference is the application of seasonality in this model. <p>
+<pre><code>
+training_data = fl_data.loc[:train_end_date, 'Differenced_Confirmed'].dropna()
+sarima_model = SARIMAX(training_data, order=(5, 0, 5), seasonal_order=(1, 1, 1, 7))
+fit_sarima = sarima_model.fit()
+
+forecast_steps = len(pd.date_range(start=test_start_date, end=test_end_date, freq="D"))
+forecast_differenced = fit_sarima.forecast(steps=forecast_steps)
+</code></pre>
+<p>Here, we can clearly see the seasonal_order that is representing the weekly seasonality. Then, instead of ARIMA, it is ultilizing the SARIMAX function which performs the machine learning model given the training and test datasets. The results will be explained in depth in the results tab, but this model produced a Hold-Out MAPE of 1.61% and an RMSE of 132,247.95. Simply, the ARIMA model in this case performed significantly better than SARIMA. <p>
+    <img src=" images/Screenshot 2024-11-03 170831.png " alt="COVID-19 Hold Out SARIMA Forecast " width="600" height="300">
 </body>
 </html>
 
@@ -303,19 +323,58 @@ Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
   <li>\( \beta \): A vector of regression coefficients corresponding to the regressors.</li>
   <li>\( \epsilon_t \): Error term at time \( t \), accounting for random noise.</li>
 </ul>
-<p>Similarly to before, the same John Hopkins data is processed into JupyterNotebook. The biggest difference between the BSTS and ARIMA is the use of a prior distribution and also it does take into consideration trend and seasonality. So, taking those into consideration, I performed the following code: </p>
+<p>Similarly to before, the same John Hopkins data is processed into JupyterNotebook. The biggest difference between the BSTS and ARIMA is the use of a prior distribution and it does take into consideration trend and seasonality. So, taking those into consideration, I performed the following code: </p>
 <pre><code>
 trend_all = np.linspace(0., 1., len(florida_data))[..., None]
 trend_all = trend_all.astype(np.float32)
 num_forecast_steps = 7
 trend = trend_all[:-num_forecast_steps, :]
 </code></pre>
-
+<p>In Bayesian analysis, it does take into consideration the trend of the data. So, this code helps create a synthetic trend based on the number of forecasts that I am indicating. In this case num_forecast=7, for a weekly trend. Because Bayesian analysis inherently relies on the prior data assumptions, this aids in serving as a prior for the trend of the data. I am implicitly giving the data the assumption that it will increase over time. I did this because based on the movement of the overall data over time, to me it does give the idea that it will. </p>
 <pre><code>
 seasonality_all = pd.get_dummies(florida_data.index.dayofweek).values.astype(np.float32)
 seasonality = seasonality_all[:-num_forecast_steps, :]
-
 </code></pre>
+<p>This part of the code focuses on the seasonal component of the Bayesian model. Since we are still working with weekly data, it gives a prior that is attempting to capture a weekly seasonality as its expectation. The creation of the seasonality matrix provides a visual way that shows how the data is incorporated. </p>
+ <img src= images/Screenshot 2024-11-03 163116.png " alt="– COVID Seasonality, Trend" width="600" height="300">
+<p> Here, the visualized seasonality demonstrates the priors implemented in the model: the assumed weekly pattern across days of the week and the increasing trend over the years. </p>
+<p> After applying the priors of seasonality and trend to the data, I shift over to the overall movement of the data and how I want to fit the Bayesian model. Since I have an uninformed dataset, I am choosing to apply the Gaussian prior for the intercept, trend coefficient and seasonality coefficient. </p>
+<pre><code>
+@tfd.JointDistributionCoroutine
+def ts_regression_model():
+intercept = yield root(tfd.Normal(0., 100., name="intercept"))
+trend_coeff = yield root(tfd.Normal(0., 10., name="trend_coeff"))
+seasonality_coeff = yield root(
+name="seasonality_coeff"))
+noise = yield root(tfd.HalfCauchy(loc=0., scale=5., name="noise_sigma"))
+</code></pre>
+<p>In this code, the Gaussian priors are highlighted in the <code>root(tfd.Normal(0., 100., name=)</code> repetition. To explain further, this is a normal distribution with a mean of 0 and a large standard deviation of 100. This allows for significant flexibility with the intercepts to adapt to the dataset without heavily influencing the posterior toward any specific initial level. For the trend, it is similar but with a standard deviation of 10. This provides a moderate constraint, meaning that the data is still somewhat flexible, enabling it to capture trends without assuming strong or weak effects. The seasonality component has a standard deviation of 1. Since I am aware of the seasonality, this tight constraint keeps the component closely centered around 0, reinforcing the weekly seasonality mentioned before. Lastly, the Half Cauchy in the code is a function that is capturing the white noise in the function.</p>
+<pre><code>  
+y_hat = (intercept[..., None] +
+tf.einsum("ij,...->...i", trend, trend_coeff) + 
+tf.einsum("ij,...j->...i", seasonality, seasonality_coeff)) 
+    
+    yield tfd.Independent(
+   tfd.Normal(y_hat, noise[..., None]),
+   reinterpreted_batch_ndims=1,
+   name="observed"
+</code></pre>
+<p>In the second part of the function development, the code is showing how the predicted output is being developed (y_hat) based on the following: intercept, trend, seasonality. Then, it is taking these components and defining the likelihood distribution for the John Hopkins data.<p>
+<img src="images/Screenshot 2024-11-03 163140.png" alt="COVID Bayesian Prior Distribution" width="600" height="300">
+<p>This image shows the visualization of the prior predictive samples from the function. Each line represents one simulated time series drawn from the general priors defined by the Gaussian distribution and pre-set parameters.</p>
+<p>Next, after our function is developed, I am going to create a training and testing data sets from the data. The training set will be all the data up until January 1st 2023, and then the test set is from January 2nd 2023 til March 9th 2023. This is because March 9th is the last recorded date that this dataset holds a confirmed case. So, although I have the data from Jan-March, to I want to see how the model will perform the hold-out MAPE. <p>
+<pre><code>
+model = sts.Sum(
+components=[
+sts.LocalLinearTrend(observed_time_series=florida_training_data),
+sts.Seasonal(num_seasons=7, observed_time_series=florida_training_data)],
+observed_time_series=florida_training_data)
+variational_posteriors = tfp.sts.build_factored_surrogate_posterior(model=model)
+</code></pre>
+<p>The above code is setting up the variational inference, which is the built-in function in PyMC for the Bayesian STS. What this is doing is constructing the surrogate posterior, which is what is creating computational inferences in an optimal matter. </p>
+<img src=" images/Screenshot 2024-11-03 163152.png " alt="COVID Training Forecast, Bayesian" width="600" height="300">
+<img src=" images/Screenshot 2024-11-03 163200.png " alt="COVID Training Forecast, Bayesian" width="600" height="300">
+<p>The two images above show the original dataset and the predicted values for the testing dates. As we can see, the predictions are not perfect, but the trend is followed closely, and the data points are relatively accurate. After calculating MAPE and RMSE, the results were 0.380% for MAPE and 31,599.05 for RMSE.</p>
     
  <h2>Methods for CO₂ Emission Forecasting</h2>
 <p>In this part of my methodology, I will explain the following: the data cleaning process for the NOAA dataset, the development and application of the ARIMA/SARIMA model on this dataset, and finally, the BSTS model. These models will be compared in a later section of the capstone to evaluate their performance on this dataset.</p>
