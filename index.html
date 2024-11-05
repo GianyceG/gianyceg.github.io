@@ -413,9 +413,22 @@ co2_data['month'] = ((co2_data['decimal_date'] - co2_data['year']) * 12 + 1).ast
 </ul>
 <p>The AR part includes three lags, \( \phi_1 \), \( \phi_2 \), \( \phi_3 \). And the MA part contains two past errors, \( \theta_1 \), \( \theta_2 \). Then, the differencing allowed there to be an impact on the \( d \) term.</p>
 
-<p>Now, this ARIMA model, perhaps due to this dataset being significantly smaller, has not captured the seasonality as appropriately. This will be continued to be explored in the results tab. However, this is why it is important to consider the SARIMA in this case as well.</p>
-<p><strong>Insert MAPE ARIMA here </strong></p>
+<p>Now, this ARIMA model, perhaps due to this dataset being significantly smaller, has not captured the seasonality as appropriately. From here I applied a Hold-Out MAPE on the data. To do this, I had to create a training set and test set from what is already known, to see how the model would perform. </p>
+<pre><code>
+train_start, train_end = '2020-01', '2023-12'
+train_data = co2_data.loc[train_start:train_end, 'CO2']
+train_data_diff = train_data.diff().dropna()
+model = ARIMA(train_data_diff, order=(3, 1, 2))
+fit = model.fit()
+forecast_end_date = '2024-09'
+forecast_steps = len(pd.date_range(start=pd.to_datetime(train_end) + pd.DateOffset(months=1), end=forecast_end_date, freq='MS'))
+forecast_diff = fit.forecast(steps=forecast_steps)
+</code></pre>
+<p> As it was seen before with the COVID dataset, we take all the historical data up to December 2023, and then from January 2024 until September 2024, the data is then simulated based on the model and how it performs. With this, the comparison between what was generated or assumed is tested against what occurred. <p>
+<img src=" images/Screenshot 2024-11-04 174718.png " alt="– CO2 ARIMA MAPE " width="600" height="300">
+<p>When comparing the blue original data against the ARIMA forecast, it can be seen that it is not the most perfect simulation of future data. This is also seen by the results as the RMSE is 3.34 and Hold Out MAPE is 0.64%. </p>
 
+<p> This will be continued to be explored in the results tab. However, this is why it is important to consider the SARIMA in this case as well.</p>
 <p>To address the seasonality, I applied a Seasonal ARIMA (SARIMA) model. Using the same non-seasonal order (3,1,2), I added a seasonal order of (1,1,12) to account for the monthly seasonality. After fitting the SARIMA model and forecasting 60 steps ahead, the resulting forecast captured both the trend and the seasonality of the data, providing a more accurate projection.</p>
 <pre><code>
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -424,10 +437,10 @@ seasonal_order = (1, 1, 1, 12)  # Monthly seasonality
 model = SARIMAX(co2_data['CO2'], order=sarimax_order, seasonal_order=seasonal_order)
 fit = model.fit(disp=False)
 </code></pre>
-
 <img src="images/Screenshot 2024-10-29 052822.png" alt="SARIMA Forecast CO2"  width="600" height="300">
-
-<p><strong> Insert image of MAPE for SARIMA here</strong></p>
+<p>Again, similar code was generated to create a Hold-Out MAPE analysis with the SARIMA model as well. The only change is that this code takes into account the seasonality that the SARIMA model captures, unlike the ARIMA.</p>
+<img src="images/Screenshot 2024-11-04 174710.png" alt="SARIMA Forecast CO2"  width="600" height="300">
+<p>This shows that the original data and the forecasted does line up closer than the ARIMA's set. This will be explained more in the results, but the outcome of this data and its performance was that the RMSE was 0.97 and the Hold-Out MAPE was 0.21%. </p>
 
 <h3>Bayesian STS Methods:</h3>
 <p>After the general data cleaning as referenced above, I originally attempted to use the PyMC3 library, but it was outdated. Instead, I used PyMC and TensorFlow Probability (TFP), both of which support Bayesian modeling methods. TFP offers a lower-level API but requires additional shape handling, as seen in the code through the use of .numpy() and .squeeze() when defining the time series model.</p>
