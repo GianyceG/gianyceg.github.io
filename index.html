@@ -300,9 +300,7 @@ forecast_differenced = fit_sarima.forecast(steps=forecast_steps)
 <h3>Bayesian Structural Time Series Model (BSTS)</h3>
 <p>The BSTS model can now be expressed as:</p>
 <p>\[
-Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t
-\]</p>
-<p><strong> left off here</strong></p>
+Y_t = \phi_t + \Phi_t + X_t \beta + \epsilon_t\]</p>
 <p>Where:</p>
 <ul>
   <li>\( Y_t \): The observed value of the time series at time \( t \) (the confirmed COVID-19 cases in Florida).</li>
@@ -343,10 +341,10 @@ y_hat = (intercept[..., None] +
 tf.einsum("ij,...->...i", trend, trend_coeff) + 
 tf.einsum("ij,...j->...i", seasonality, seasonality_coeff)) 
     
-    yield tfd.Independent(
-   tfd.Normal(y_hat, noise[..., None]),
-   reinterpreted_batch_ndims=1,
-   name="observed"
+yield tfd.Independent(
+tfd.Normal(y_hat, noise[..., None]),
+reinterpreted_batch_ndims=1,
+name="observed"
 </code></pre>
 <p>In the second part of the function development, the code is showing how the predicted output is being developed (y_hat) based on the following: intercept, trend, seasonality. Then, it is taking these components and defining the likelihood distribution for the John Hopkins data.<p>
 <img src="images/Screenshot 2024-11-03 163140.png" alt="COVID Bayesian Prior Distribution" width="600" height="300">
